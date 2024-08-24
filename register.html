@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="login.css">
+    <script src="https://kit.fontawesome.com/1aa83cb145.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="back">
+        <div class="overlay"></div>
+        <div class="backLeft">
+            <div class="textOverlay">
+                <h1>Socialbook</h1>
+                <p>Connect with friends and the world around you on Socialbook.</p>
+            </div>
+        </div>
+    </div>
+    <div id="slideBox">
+        <div class="topLayer">
+            <div class="right">
+                <div class="content">
+                    <h2>Sign Up</h2>
+                    <div class="alert" id="alert-container">
+                        <span id="alert-message"></span>
+                        <i class="fa-solid fa-x" id="close-alert"></i>                        
+                    </div>
+                    <form id="signup-form" method="post" action="/signup">
+                        <div class="icon-set">
+                            <i class="fa-solid fa-user"></i>
+                            <input id="username" type="text" name="username" placeholder="Username" required>
+                        </div>
+                        <div class="icon-set">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input id="email" type="email" name="email" placeholder="Email" required>
+                        </div>
+                        <div class="icon-set">
+                            <i class="fa-solid fa-lock"></i>
+                            <input id="password" type="password" name="password" placeholder="Password" required>
+                        </div>
+                        <div class="icon-set">
+                            <i class="fa-solid fa-lock"></i>
+                            <input id="confirm-password" type="password" name="confirm_password" placeholder="Confirm Password" required>
+                        </div>
+                        <button type="submit">Sign Up</button>
+                    </form>
+                    <button class="off" onclick="window.location.href='login.html'">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="register.js"></script>
+</body>
+</html>

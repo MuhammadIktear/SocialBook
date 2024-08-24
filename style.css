@@ -34,6 +34,20 @@ nav{
     width: 160px;
     margin-right: 45px;
 }
+.P{
+    font-size: 35px;
+    color:#1876f2;
+    background-color: #ffffff;
+    padding: 0 5px;
+    border-radius: 2px;
+    margin-right: 2px;
+}
+.phibook{
+    font-size: 28px;
+    color: #f5f3f3;
+    letter-spacing: 0.8px;
+    margin-right: 20px;
+}
 .nav-left,.nav-right{
     display: flex;
     align-items: center;
@@ -75,18 +89,6 @@ nav{
 .online{
     position: relative;
 }
-.online::after{
-    content: '';
-    width: 7px;
-    height: 7px;
-    border: 2px solid #fff;
-    border-radius: 50%;
-    background: #41db51;
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-
 .container{
     display: flex;
     justify-content: space-between;
@@ -99,6 +101,21 @@ nav{
     align-self: flex-start;
     display: block;
 }
+
+.left-sidebar h4{
+    color: #626262;
+    margin-top: 10px;
+    letter-spacing: 0.7px;
+}
+.left-sidebar p{
+    font-size: 14px;
+    margin-top: 8px;
+    color: #626262;
+    letter-spacing: 0.7px;
+}
+.left-sidebar p:last-child{
+    margin-bottom: 20px;
+}
 .right-sidebar{
     flex-basis: 25%;
     position: sticky;
@@ -110,6 +127,7 @@ nav{
     color: #626262;
     display: block;
 }
+
 .main-sidebar{
     flex-basis: 47%;
 }
@@ -121,8 +139,9 @@ nav{
     color: #626262;
     width: fit-content;
 }
-.imp-links a img{
-    width: 25px;
+.imp-links img{
+    max-width: 150px;
+    border-radius: 5px;
     margin-right: 15px;
 }
 .imp-links a:last-child{
@@ -201,10 +220,36 @@ nav{
 }
 .online-list{
     display: flex;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
-.online-list .online img{
+.online{
+    display: flex;
+}
+.suggestions-list{
+    display: block;
+}
+.suggested{
+    display: flex;
+}
+.comments{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;    
+}
+.ellipsis-icon{
+    gap: 20px;
+    display: flex;
+}
+.single-comment{
+    border-radius: 20px;
+    padding: 10px;
+    background: #f5f3f3;
+}
+.online-list .online img , .comments img{
     width: 40px;
     border-radius: 50%;
 }
@@ -213,62 +258,20 @@ nav{
     border-radius: 50%;
     margin-right: 15px;
 }
-.online-list .online::after{
-    top: unset;
-    bottom: 4px;
+.online-list .online small, .comments small{
+    color: #626262;
 }
-.story-gallery{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+.online-list p{
+    font-weight: 600;    
 }
-.story{
-    flex-basis: 18%;
-    padding-top: 32%;
-    position: relative;
-    background-position: center;
-    background-size: cover;
-    border-radius: 10px;
+.online-list a{
+    text-decoration: none;
+    color: #4a8ce2;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    margin-left: 10px;
 }
-.story img{
-    position: absolute;
-    width: 45px;
-    border-radius: 50%;
-    top: 10px;
-    left: 10px;
-    border: 5px solid #1876f2;
-}
-.story p{
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
-    text-align: center;
-    color: white;
-    font-size: 14px;
-}
-.story1{
-    background-image: linear-gradient(transparent,rgba(0,0,0,0.5)), url(images/status-1.png);    
-}
-.story2{
-    background-image: linear-gradient(transparent,rgba(0,0,0,0.5)), url(images/status-2.png);
-}
-.story3{
-    background-image: linear-gradient(transparent,rgba(0,0,0,0.5)), url(images/status-3.png);
-}
-.story4{
-    background-image: linear-gradient(transparent,rgba(0,0,0,0.5)), url(images/status-4.png);
-}
-.story5{
-    background-image: linear-gradient(transparent,rgba(0,0,0,0.5)), url(images/status-5.png);
-}
-.story.story1 img{
-    top: unset;
-    left: 50%;
-    bottom: 40px;
-    transform: translateX(-50%);
-    border: 0;
-    width: 35px;
-}
+
 .write-post-container{
     width: 100%;
     background: var(--bg-color);
@@ -295,11 +298,19 @@ nav{
 .user-profile i{
     margin-left: 3px;
 }
+.images img{
+    margin: 1px;
+    width: 125px;
+    height: 110px;
+    object-fit: cover;
+}
 .post-input-container{
     padding: 55px;
     padding-top: 20px;
 }
 .post-input-container textarea{
+    padding: 10px;
+    border-radius: 10px;
     width: 100%;
     border: 0;
     outline: 0;
@@ -350,6 +361,7 @@ nav{
     justify-content: space-between;
 }
 .activity-icons div img{
+    cursor: pointer;
     width: 18px;
     margin-right: 10px;
 }
@@ -498,4 +510,61 @@ nav{
     .post-container, .write-post-container {
         padding: 15px;
     }
+}
+.send-comments{
+    padding-top: 20px;
+}
+.send-comments textarea{
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    border: 0;
+    outline: 0;
+    border-bottom: 1px solid #ccc;
+    resize: none;
+}
+
+.edit-menu{
+    margin-left: -227px;
+    position: absolute;
+    width: 90%;
+    max-width: 260px;
+    background: var(--bg-color);
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: max-height 0.3s;
+}
+.edit-menu-inner{
+    padding: 0 20px;
+}
+.edit-link{
+    align-items: center;
+    margin: 15px 0;
+}
+.edit-link .settings-icon{
+    width: 38px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+.edit-link a{
+    padding: 10px;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    color: #626262;
+}
+.fa-ellipsis{
+    color: #626262;
+}
+.post-video{
+    width: 100%; /* Adjust width to fit the container, or specify a fixed width */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 800px; /* Optional: limit the maximum width of the video */
+    border: 2px solid #ddd; /* Optional: add a border around the video */
+    border-radius: 8px; /* Optional: round the corners of the video */
+    display: block; /* Ensure video is displayed as a block element */
+    margin: 0 auto; /    
 }

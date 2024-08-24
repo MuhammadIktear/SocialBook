@@ -1,0 +1,124 @@
+.overlay {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+}
+
+.toast {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 700px;
+    z-index: 1001; 
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.toast-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.toast-header h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.toast-header button {
+    background: #f0f0f0;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.toast-header button:hover {
+    background: #ddd;
+}
+
+.toast-body {
+    margin-bottom: 20px;
+}
+
+#imagePreview {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.toast-footer {
+    margin-top: 20px;
+}
+
+.toast-footer button {
+    background:#626262;
+    float: left;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.toast-footer button:hover {
+    background: #0056b3;
+}
+
+#videoPreview {
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input[type="file"] {
+    display: block;
+    margin: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+textarea {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    border: 0;
+    outline: 0;
+    border-bottom: 1px solid #ccc;
+    resize: none;
+}
+#imageInput{
+    display: block;
+}
+#videoInput{
+    display: block;
+}
+
+

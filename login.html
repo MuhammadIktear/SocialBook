@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css">
+    <script src="https://kit.fontawesome.com/1aa83cb145.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="back">
+        <div class="overlay"></div>
+        <div class="backLeft">
+            <div class="textOverlay">
+                <h1>Phibook</h1>
+                <p>Connect with friends and the world around you on Phibook.</p>
+            </div>
+        </div>
+    </div>
+    <div id="slideBox">
+        <div class="topLayer">
+            <div class="right">
+                <div class="content">
+                    <h2>Login</h2>
+                    <div class="alert" id="alert-container">
+                        <span id="alert-message"></span>
+                        <i class="fa-solid fa-x" id="close-alert"></i>                        
+                    </div>
+                    <form id="login-form" method="post" action="/login">
+                        <div class="icon-set">
+                            <i class="fa-solid fa-user"></i>
+                            <input id="login-username" type="text" name="username" placeholder="Username" required>
+                        </div>
+                        <div class="icon-set">
+                            <i class="fa-solid fa-lock"></i>
+                            <input id="login-password" type="password" name="password" placeholder="Password" required>
+                        </div>
+                        <button type="submit">Login</button>
+                    </form>
+                    <button class="off" onclick="window.location.href='register.html'">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="register.js"></script>
+</body>
+</html>
+

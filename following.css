@@ -1,0 +1,129 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5; /* Light gray background */
+    margin: 0;
+    padding: 20px;
+}
+
+.friend-list {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #ffffff; /* White background */
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.friend-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.friend-list-header h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    color:#626262;
+}
+
+.friend-list-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.friend-list-search input {
+    background-color: #f0f2f5;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    border-radius: 20px;
+    color: #333;
+    width: 100%;
+    max-width: 300px;
+}
+
+.friend-list-search button {
+    background-color: #3d3f41;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    color:#ffffff;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.friend-list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.friend-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f7f7f7;
+    padding: 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.friend-item button{
+    margin: 10px 0;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    background: #f0ecec;
+    padding: 10px;
+    border-radius: 10px;
+    color: #626262;
+    cursor: pointer;
+    position: inherit;
+}
+.friend-item small{
+    color: #626262;
+}
+
+.friend-item img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+.friend-info {
+    flex: 1;
+}
+.friend-name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.friend-info h3 {
+    margin: 0;
+    font-size: 16px;
+    color:#626262;
+    cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .friend-list-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .friend-list-search {
+        width: 100%;
+        margin-top: 10px;
+    }
+}

@@ -1,9 +1,30 @@
 var settingsmenu = document.querySelector(".settings-menu");
+var editmenu = document.querySelector(".edit-menu");
 var darkBtn = document.getElementById("dark-btn");
+var message = document.querySelector(".all-comments")
+
+function Comments() {
+    if (message.style.display === "block") {
+        message.style.display = "none";
+    } else {
+        message.style.display = "block";
+    }
+}
 
 function settingsMenuToggle() {
     settingsmenu.classList.toggle("settings-menu-height");
 }
+
+function toggleMenu(event, element) {
+    event.preventDefault();
+    var editMenu = element.querySelector(".edit-menu");
+    if (editMenu.style.display === "none" || editMenu.style.display === "") {
+        editMenu.style.display = "block";
+    } else {
+        editMenu.style.display = "none";
+    }
+}
+
 
 darkBtn.onclick = function() {
     darkBtn.classList.toggle("dark-btn-on");
