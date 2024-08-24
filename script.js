@@ -25,6 +25,16 @@ function toggleMenu(event, element) {
     }
 }
 
+function toggleCommentMenu(event, element) {
+    event.preventDefault();
+    var editMenu = element.querySelector(".edit-comment-menu");
+    if (editMenu.style.display === "none" || editMenu.style.display === "") {
+        editMenu.style.display = "block";
+    } else {
+        editMenu.style.display = "none";
+    }
+}
+
 
 darkBtn.onclick = function() {
     darkBtn.classList.toggle("dark-btn-on");

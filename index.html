@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SocialBook</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="input_image.css">    
+    <link rel="stylesheet" href="input_image.css">
+    <link rel="stylesheet" href="edit_delete_post.css">       
     <script src="https://kit.fontawesome.com/1aa83cb145.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -67,7 +68,6 @@
             </div>            
         </div>
 
-
         <!-- main-content -->
         <div class="main-sidebar">
             <div class="write-post-container">
@@ -84,8 +84,6 @@
                     </div>
                 </div>
             </div>
-    <!-- Overlay -->
-    <div id="overlay" class="overlay"></div>
 
     <!-- Toast -->
     <div id="overlay" class="overlay"></div>
@@ -109,6 +107,46 @@
             <button type="button" onclick="postContent(event)">Post</button>
         </div>
     </div>
+
+
+<!-- Edit Toast -->
+<div id="overlay2" class="overlay2"></div>
+<div id="edit-toast">
+    <div class="toast-header">
+        <h3 id="toastTitle">Edit Post</h3>
+        <button onclick="hideEditToast()">×</button>
+    </div>
+    <div class="toast-content">
+        <div class="set_">
+            <label for="edit-image"><img src="images/another_photo.png"></label>
+            <input type="file" id="edit-image" accept="image/*" onchange="previewEditImage(event)">
+        </div>
+        <div class="set_">
+            <label for="edit-video"><img src="images/another_video.png"></label>
+            <input type="file" id="edit-video" accept="video/*" onchange="previewEditVideo(event)">            
+        </div>
+        <img id="edit-image-preview" style="display:none; width:100%;" />
+        <video id="edit-video-preview" controls style="display:none; width:100%;"></video>
+        <textarea id="edit-caption" placeholder="Edit your post..."></textarea>
+        <div class="set_button">
+            <button onclick="updatePost()">Save Changes</button>
+            <button onclick="hideEditToast()">Cancel</button>
+        </div>
+
+    </div>
+</div>
+
+<!-- Delete Confirmation -->
+<div id="confirm-delete">
+    <button class="close" onclick="hideDeleteConfirm()">×</button>
+    <div class="confirmation-content">
+        <p>Are you sure you want to delete this post?</p>
+        <div class="set_button">
+            <button onclick="confirmDelete()">Yes, Delete</button>
+            <button onclick="hideDeleteConfirm()">Cancel</button>
+        </div>
+    </div>
+</div>
 
             <div id="posts-container" class="posts-container">
 
@@ -152,5 +190,6 @@
      <script src="send_comment.js"></script>
      <script src="edit_comment.js"></script>
      <script src="delete_comment.js"></script>
+     <script src="edit_delete_post.js"></script>
 </body>
 </html>
