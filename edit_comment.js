@@ -1,10 +1,7 @@
-// Edit an existing comment
 async function editComment(commentId) {
     const userProfilesApiUrl = 'http://127.0.0.1:8000/user/useraccounts/';
-    const commentDiv = document.getElementById(`comment-${commentId}`);
+    const token = localStorage.getItem('token');
     const userId = localStorage.getItem('user_id');
-    let userProfiles = {};
-    let username = "";
 
     if (!userId) {
         alert('User ID is not available');
@@ -12,68 +9,103 @@ async function editComment(commentId) {
     }
 
     try {
-        const response = await fetch(userProfilesApiUrl, {
+        // Fetch user profile data
+        const userProfilesResponse = await fetch(userProfilesApiUrl, {
             method: 'GET',
             headers: {
+                'Authorization': `Token ${token}`,
                 'Content-Type': 'application/json'
             }
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+        if (!userProfilesResponse.ok) {
+            throw new Error(`HTTP error! Status: ${userProfilesResponse.status}`);
         }
 
-        const data = await response.json();
-        data.forEach(profile => {
-            if (profile.id === parseInt(userId)) {
-                username = profile.username;
-                userProfiles[username] = profile.image;
+        const userProfiles = await userProfilesResponse.json();
+
+        // Fetch the current comment data
+        const commentResponse = await fetch(`http://127.0.0.1:8000/posts/allcomment/?comment_id=${commentId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'application/json'
             }
         });
 
+        if (!commentResponse.ok) {
+            throw new Error(`HTTP error! Status: ${commentResponse.status}`);
+        }
+
+        const commentData = await commentResponse.json();
+        const comment = commentData[0]; // Assuming the comment data is an array
+
+        // Get the comment element
+        const commentDiv = document.getElementById(`comment-${commentId}`);
+        if (!commentDiv) {
+            alert('Comment element not found');
+            return;
+        }
+
+        // Replace comment text with a textarea for editing
         const commentText = commentDiv.querySelector('small').innerText;
         commentDiv.querySelector('small').outerHTML = `
-            <textarea id="edit-comment-text-${commentId}" rows="2">${commentText}</textarea>
-            <a href="#" onclick="saveComment(${commentId})">Save</a>`;
+            <textarea id="edit-comment-text-${commentId}" rows="3">${commentText}</textarea>
+            <button onclick="saveComment(${commentId})">Save</button>
+        `;
+
     } catch (error) {
-        console.error('Error fetching user profiles:', error);
-        alert('Error fetching user profiles');
+        console.error('Error editing comment:', error);
+        alert('Error editing comment');
     }
 }
 
-function saveComment(commentId) {
+async function saveComment(commentId) {
     const token = localStorage.getItem('token');
-    const editedCommentText = document.getElementById(`edit-comment-text-${commentId}`).value;
-    const username = localStorage.getItem('username');
 
-    if (!editedCommentText) {
-        alert('Comment cannot be empty');
+    if (!token) {
+        alert('Authentication token is missing');
         return;
     }
 
-    fetch(`http://127.0.0.1:8000/posts/posts/comments/${commentId}/update/`, {
-        method: 'PUT', 
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Token ${token}`
-        },
-        body: JSON.stringify({
-            user: userId, 
-            comment: editedCommentText,
-            username: username 
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-            console.error('Error editing comment:', data.error);
-            alert('Error editing comment');
-        } else {
-            document.getElementById(`edit-comment-text-${commentId}`).outerHTML = `<small>${data.comment}</small>`;
+    try {
+        // Get the updated comment text
+        const updatedCommentText = document.getElementById(`edit-comment-text-${commentId}`).value;
+        if (!updatedCommentText.trim()) {
+            alert('Comment cannot be empty');
+            return;
         }
-    })
-    .catch(error => {
-        console.error('Error editing comment:', error);
-        alert('Error editing comment');
-    });
+
+        // Update the comment
+        const updateResponse = await fetch(`http://127.0.0.1:8000/posts/allcomment/`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: commentId,
+                comment: updatedCommentText
+            })
+        });
+
+        if (!updateResponse.ok) {
+            throw new Error('Failed to update comment');
+        }
+
+        const updatedComment = await updateResponse.json();
+
+        // Update the comment in the DOM
+        const commentDiv = document.getElementById(`comment-${commentId}`);
+        if (commentDiv) {
+            commentDiv.querySelector('textarea').outerHTML = `
+                <small>${updatedComment.comment}</small>
+            `;
+            commentDiv.querySelector('button').remove(); // Remove the Save button
+        }
+
+    } catch (error) {
+        console.error('Error saving comment:', error);
+        alert('Error saving comment');
+    }
 }

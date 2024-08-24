@@ -113,7 +113,7 @@ async function postContent(event) {
 
     // Prepare post data
     const postData = {
-        userId: userId,
+        created_by: userId,
         [contentType]: contentUrl,
         text: caption,
     };

@@ -1,27 +1,36 @@
 async function deleteComment(commentId) {
     const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('user_id');
+    
+    if (!token) {
+        alert('Authentication token is missing');
+        return;
+    }
 
     try {
-        const response = await fetch(`http://127.0.0.1:8000/posts/posts/comments/${commentId}/delete`, {
+        // Delete the comment
+        const deleteResponse = await fetch(`http://127.0.0.1:8000/posts/allcomment/?comment_id=${commentId}`, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${token}`
-            },
-            body: JSON.stringify({
-                user: userId,
-                comment: commentId
-            })
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'application/json'
+            }
         });
 
-        if (response.ok) {
-            document.querySelector(`#comment-${commentId}`).remove();
-        } else {
-            const errorData = await response.json();
-            console.error('Error deleting comment:', errorData);
+        if (!deleteResponse.ok) {
+            throw new Error('Failed to delete comment');
         }
+
+        // Remove the comment from the DOM
+        const commentElement = document.getElementById(`comment-${commentId}`);
+        if (commentElement) {
+            commentElement.remove();
+        }
+
+        // Optionally, show a success message
+        alert('Comment deleted successfully!');
+
     } catch (error) {
-        console.error('Network error:', error);
+        console.error('Error deleting comment:', error);
+        alert('Error deleting comment');
     }
 }

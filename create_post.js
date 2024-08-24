@@ -97,38 +97,43 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div><img src="images/share.png">0</div>
                         </div>
                     </div> 
-                    <div class="all-comments" style="display: none;">
-                        ${post.comments.map(comment => `
-                            <div class="comments" id="comment-${comment.id}">
-                                <img src="${userProfiles[comment.user]?.image || 'images/profile-pic.png'}" alt="Profile Image">
-                                <div class="single-comment">
-                                    <div class="ellipsis-icon">
-                                        <div>
-                                            <p>${userProfiles[comment.user]?.username || 'Unknown User'}</p>
-                                            <small>${comment.comment}</small>
-                                        </div>
-                                        ${comment.user == userId ? `<div onclick="toggleMenu(event, this)">
-                                            <a href="javascript:void(0);"><i class="fa-solid fa-ellipsis"></i></a>     
-                                            <div class="edit-menu" style="display: none;">
-                                                <div class="edit-menu-inner">
-                                                    <div class="edit-link">
-                                                        <a href="#" onclick="editComment(${comment.id})">Edit</a>
-                                                        <a href="#" onclick="deleteComment(${comment.id})">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </div>                                         
-                                        </div>` : ''}
+<div class="all-comments" style="display: none;">
+    <!-- Comments Container -->
+    <div id="comments-container-${post.id}">
+        ${post.comments.map(comment => `
+            <div class="comments" id="comment-${comment.id}">
+                <img src="${userProfiles[comment.user]?.image || 'images/profile-pic.png'}" alt="Profile Image">
+                <div class="single-comment">
+                    <div class="ellipsis-icon">
+                        <div>
+                            <p>${userProfiles[comment.user]?.username || 'Unknown User'}</p>
+                            <small>${comment.comment}</small>
+                        </div>
+                        ${comment.user == userId ? `
+                        <div onclick="toggleMenu(event, this)">
+                            <a href="javascript:void(0);"><i class="fa-solid fa-ellipsis"></i></a>     
+                            <div class="edit-menu" style="display: none;">
+                                <div class="edit-menu-inner">
+                                    <div class="edit-link">
+                                        <a onclick="editComment(${comment.id})">Edit</a>
+                                        <a onclick="deleteComment(${comment.id})">Delete</a>
                                     </div>
                                 </div>
-                            </div>
-                        `).join('')}
-                        <div class="send-comments">
-                            <textarea id="comment-text-${post.id}" rows="2" placeholder="Comment as ${currentUser}"></textarea>               
-                            <div class="add-post-links">
-                                <a onclick="sendComment(${post.id})" href="#"><img src="images/send message.png">Send</a>
-                            </div>
-                        </div>  
+                            </div>                                         
+                        </div>` : ''}
                     </div>
+                </div>
+            </div>
+        `).join('')}
+    </div>
+    <!-- Textarea and Send Button -->
+    <div class="send-comments">
+        <textarea id="comment-text-${post.id}" rows="2" placeholder="Comment as ${currentUser}"></textarea>               
+        <div class="add-post-links">
+            <a onclick="sendComment(${post.id})"><img src="images/send message.png">Send</a>
+        </div>
+    </div>  
+</div>
                 `;
 
                 postElement.innerHTML = postHtml;
