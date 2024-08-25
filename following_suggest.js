@@ -3,10 +3,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchButton = document.querySelector('.friend-list-search button');
     const searchInput = document.querySelector('.friend-list-search input');
     const userProfilesApiUrl = 'http://127.0.0.1:8000/user/useraccounts/';
+    const followingsApiUrl = 'http://127.0.0.1:8000/user/followings/';
+    const followersApiUrl = 'http://127.0.0.1:8000/user/followers/';
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('user_id');
 
-    // Fetch all user profiles
+    // Fetch user profiles
     fetch(userProfilesApiUrl, {
         method: 'GET',
         headers: {
@@ -21,21 +23,19 @@ document.addEventListener('DOMContentLoaded', function() {
         return response.json();
     })
     .then(users => {
-        // Get the current user's details
         const currentUser = users.find(user => user.id == userId);
         const followingIds = currentUser.following.map(follow => follow.following);
-        
-        // Filter suggestions: exclude current user and already followed users
+
         let suggestions = users.filter(user => 
             user.id !== currentUser.id && !followingIds.includes(user.id)
         );
 
-        // Function to render suggestions
         function renderSuggestions(filteredSuggestions) {
             if (filteredSuggestions.length > 0) {
                 const suggestionsHtml = filteredSuggestions.map(user => {
+                    const isFollowing = followingIds.includes(user.id);
                     return `
-                        <div class="friend-item">
+                        <div class="friend-item suggested" data-user-id="${user.id}">
                             <div class="friend-name">
                                 <img src="${user.image || 'images/member-placeholder.png'}" alt="${user.username}">
                                 <div class="friend-info">
@@ -43,8 +43,9 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <small>${user.first_name} ${user.last_name}</small>
                                 </div>
                             </div>
-                            <div>
-                                <button>Follow</button>
+                            <div class="friend-actions">
+                                <button class="follow-button follow" onclick="follow(${user.id})" style="${isFollowing ? 'display: none;' : 'display: inline-block;'}">Follow</button>
+                                <button class="follow-button unfollow" onclick="unfollow(${user.id})" style="${isFollowing ? 'display: inline-block;' : 'display: none;'}">Unfollow</button>
                             </div>
                         </div>
                     `;
@@ -55,10 +56,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Initial render of suggestions
         renderSuggestions(suggestions);
 
-        // Handle search functionality
         function searchSuggestions() {
             const searchText = searchInput.value.toLowerCase();
             const filteredSuggestions = suggestions.filter(user => {
@@ -69,9 +68,84 @@ document.addEventListener('DOMContentLoaded', function() {
             renderSuggestions(filteredSuggestions);
         }
 
-        // Attach search functionality to button click and input change
         searchButton.addEventListener('click', searchSuggestions);
         searchInput.addEventListener('input', searchSuggestions);
     })
     .catch(error => console.error('Error fetching suggestions:', error));
+
+    window.follow = async function(followingUserId) {
+        try {
+            const followResponse = await fetch(followingsApiUrl, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    main_user: userId,
+                    following: followingUserId
+                })
+            });
+
+            if (!followResponse.ok) {
+                throw new Error('Failed to follow user');
+            }
+
+            const followerResponse = await fetch(followersApiUrl, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    main_user: followingUserId,
+                    follower: userId
+                })
+            });
+
+            if (!followerResponse.ok) {
+                throw new Error('Failed to add follower');
+            }            
+
+            document.querySelector(`.suggested[data-user-id="${followingUserId}"] .follow`).style.display = 'none';
+            document.querySelector(`.suggested[data-user-id="${followingUserId}"] .unfollow`).style.display = 'inline-block';
+
+        } catch (error) {
+            console.error('Error following user:', error);
+        }
+    };
+
+    window.unfollow = async function(followingUserId) {
+        try {
+            const unfollowResponse = await fetch(`${followingsApiUrl}?main_user=${userId}&following=${followingUserId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!unfollowResponse.ok) {
+                throw new Error('Failed to unfollow user');
+            }
+
+            const unfollowerResponse = await fetch(`${followersApiUrl}?main_user=${followingUserId}&follower=${userId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!unfollowerResponse.ok) {
+                throw new Error('Failed to remove follower');
+            }            
+
+            document.querySelector(`.suggested[data-user-id="${followingUserId}"] .follow`).style.display = 'inline-block';
+            document.querySelector(`.suggested[data-user-id="${followingUserId}"] .unfollow`).style.display = 'none';
+
+        } catch (error) {
+            console.error('Error unfollowing user:', error);
+        }
+    };
 });

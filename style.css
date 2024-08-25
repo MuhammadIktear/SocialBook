@@ -577,13 +577,13 @@ nav{
     color: #626262;
 }
 .post-video{
-    width: 100%; /* Adjust width to fit the container, or specify a fixed width */
-    height: auto; /* Maintain aspect ratio */
-    max-width: 800px; /* Optional: limit the maximum width of the video */
-    border: 2px solid #ddd; /* Optional: add a border around the video */
-    border-radius: 8px; /* Optional: round the corners of the video */
-    display: block; /* Ensure video is displayed as a block element */
-    margin: 0 auto; /    
+    width: 100%; 
+    height: auto; 
+    max-width: 800px;
+    border: 2px solid #ddd; 
+    border-radius: 8px; 
+    display: block; 
+    margin: 0 auto; 
 }
 
 /* Style the textarea */
@@ -612,7 +612,7 @@ button {
 
 /* Hover effect for the button */
 button:hover {
-    background-color: #218838; /* Darker green */
+    background-color: #2e73c2; /* Darker green */
 }
 
 /* Optional: Add some spacing to the container div */

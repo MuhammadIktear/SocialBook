@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const userProfilesApiUrl = 'http://127.0.0.1:8000/user/useraccounts/';
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('user_id');
-
     fetch(`${userProfilesApiUrl}${userId}/`, {
         method: 'GET',
         headers: {
