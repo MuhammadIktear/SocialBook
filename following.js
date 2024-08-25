@@ -1,98 +1,152 @@
 document.addEventListener('DOMContentLoaded', function() {
     const friendListGrid = document.querySelector('.friend-list-grid');
-    const searchInput = document.querySelector('.friend-list-search input');
     const searchButton = document.querySelector('.friend-list-search button');
+    const searchInput = document.querySelector('.friend-list-search input');
     const userProfilesApiUrl = 'http://127.0.0.1:8000/user/useraccounts/';
-    const followApiUrl = 'http://127.0.0.1:8000/user/follow/';
+    const followingsApiUrl = 'http://127.0.0.1:8000/user/followings/';
+    const followersApiUrl = 'http://127.0.0.1:8000/user/followers/';
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('user_id');
 
-    function fetchFollowingList() {
-        fetch(`${userProfilesApiUrl}${userId}/`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Token ${token}`,
-                'Content-Type': 'application/json'
+    // Fetch user profiles
+    fetch(userProfilesApiUrl, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Token ${token}`,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(users => {
+        const currentUser = users.find(user => user.id == userId);
+        const followingIds = currentUser.following.map(follow => follow.following);
+        const followerIds = users.flatMap(user => user.followers.map(f => f.follower));
+
+        let followingSuggestions = users.filter(user => 
+            user.id !== currentUser.id && followingIds.includes(user.id)
+        );
+
+        function renderSuggestions(filteredSuggestions) {
+            if (filteredSuggestions.length > 0) {
+                const suggestionsHtml = filteredSuggestions.map(user => {
+                    const isFollowing = followingIds.includes(user.id);
+                    return `
+                        <div class="friend-item suggested" data-user-id="${user.id}">
+                            <div class="friend-name">
+                                <img src="${user.image || 'images/member-placeholder.png'}" alt="${user.username}">
+                                <div class="friend-info">
+                                    <h3>${user.username}</h3>
+                                    <small>${user.first_name} ${user.last_name}</small>
+                                </div>
+                            </div>
+                            <div class="friend-actions">
+                                <button class="follow-button follow" onclick="follow(${user.id})" style="${isFollowing ? 'display: none;' : 'display: inline-block;'}">Follow</button>
+                                <button class="follow-button unfollow" onclick="unfollow(${user.id})" style="${isFollowing ? 'display: inline-block;' : 'display: none;'}">Unfollow</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                friendListGrid.innerHTML = suggestionsHtml;
+            } else {
+                friendListGrid.innerHTML = '<p>No suggestions available.</p>';
             }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(user => {
-            const following = user.following;
-            const followingHtml = following.map(user => `
-                <div class="friend-list-item">
-                    <img src="${user.image || 'images/default-profile.png'}" alt="${user.following_username}">
-                    <div class="friend-info">
-                        <h3>${user.following_username}</h3>
-                    </div>
-                    <button class="follow-button" data-user-id="${user.following}" data-action="unfollow">Unfollow</button>
-                </div>
-            `).join('');
-            friendListGrid.innerHTML = followingHtml;
-
-            document.querySelectorAll('.follow-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    const userIdToFollow = this.getAttribute('data-user-id');
-                    const action = this.getAttribute('data-action');
-                    toggleFollow(action, userIdToFollow, this);
-                });
-            });
-        })
-        .catch(error => console.error('Error fetching following list:', error));
-    }
-
-    function toggleFollow(action, userIdToFollow, button) {
-        const followData = {
-            main_user: userId,
-            following: userIdToFollow,
-            following_username: button.closest('.friend-list-item').querySelector('h3').textContent
-        };
-
-        let method = 'POST';
-        let url = followApiUrl;
-
-        if (action === 'unfollow') {
-            method = 'DELETE';
-            // Construct URL with query parameters for DELETE request
-            url = `${followApiUrl}?main_user=${userId}&following=${userIdToFollow}`;
         }
 
-        fetch(url, {
-            method: method,
-            headers: {
-                'Authorization': `Token ${token}`,
-                'Content-Type': 'application/json'
-            },
-            body: method === 'POST' ? JSON.stringify(followData) : undefined
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+        renderSuggestions(followingSuggestions);
+
+        function searchSuggestions() {
+            const searchText = searchInput.value.toLowerCase();
+            const filteredSuggestions = followingSuggestions.filter(user => {
+                const username = user.username.toLowerCase();
+                const name = (user.first_name + ' ' + user.last_name).toLowerCase();
+                return username.includes(searchText) || name.includes(searchText);
+            });
+            renderSuggestions(filteredSuggestions);
+        }
+
+        searchButton.addEventListener('click', searchSuggestions);
+        searchInput.addEventListener('input', searchSuggestions);
+    })
+    .catch(error => console.error('Error fetching suggestions:', error));
+
+    window.follow = async function(followingUserId) {
+        try {
+            const followResponse = await fetch(followingsApiUrl, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    main_user: userId,
+                    following: followingUserId
+                })
+            });
+
+            if (!followResponse.ok) {
+                throw new Error('Failed to follow user');
             }
-            return response.json();
-        })
-        .then(() => {
-            button.textContent = action === 'follow' ? 'Unfollow' : 'Follow';
-            button.setAttribute('data-action', action === 'follow' ? 'unfollow' : 'follow');
-        })
-        .catch(error => console.error(`Error while trying to ${action}:`, error));
-    }
 
-    function searchFollowing() {
-        const query = searchInput.value.toLowerCase();
-        const items = friendListGrid.querySelectorAll('.friend-list-item');
-        items.forEach(item => {
-            const username = item.querySelector('.friend-info h3').textContent.toLowerCase();
-            item.style.display = username.includes(query) ? 'block' : 'none';
-        });
-    }
+            const followerResponse = await fetch(followersApiUrl, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    main_user: followingUserId,
+                    follower: userId
+                })
+            });
 
-    searchButton.addEventListener('click', searchFollowing);
-    searchInput.addEventListener('keyup', searchFollowing);
+            if (!followerResponse.ok) {
+                throw new Error('Failed to add follower');
+            }            
 
-    fetchFollowingList();
+            document.querySelector(`.suggested[data-user-id="${followingUserId}"] .follow`).style.display = 'none';
+            document.querySelector(`.suggested[data-user-id="${followingUserId}"] .unfollow`).style.display = 'inline-block';
+
+        } catch (error) {
+            console.error('Error following user:', error);
+        }
+    };
+
+    window.unfollow = async function(followingUserId) {
+        try {
+            const unfollowResponse = await fetch(`${followingsApiUrl}?main_user=${userId}&following=${followingUserId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!unfollowResponse.ok) {
+                throw new Error('Failed to unfollow user');
+            }
+
+            const unfollowerResponse = await fetch(`${followersApiUrl}?main_user=${followingUserId}&follower=${userId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!unfollowerResponse.ok) {
+                throw new Error('Failed to remove follower');
+            }            
+
+            document.querySelector(`.suggested[data-user-id="${followingUserId}"] .follow`).style.display = 'inline-block';
+            document.querySelector(`.suggested[data-user-id="${followingUserId}"] .unfollow`).style.display = 'none';
+
+        } catch (error) {
+            console.error('Error unfollowing user:', error);
+        }
+    };
 });

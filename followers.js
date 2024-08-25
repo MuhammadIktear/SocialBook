@@ -3,11 +3,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchButton = document.querySelector('.friend-list-search button');
     const searchInput = document.querySelector('.friend-list-search input');
     const userProfilesApiUrl = 'http://127.0.0.1:8000/user/useraccounts/';
+    const followingsApiUrl = 'http://127.0.0.1:8000/user/followings/';
+    const followersApiUrl = 'http://127.0.0.1:8000/user/followers/';
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('user_id');
 
-    // Fetch user profile to get the list of followers
-    fetch(`${userProfilesApiUrl}${userId}/`, {
+    // Fetch user profiles
+    fetch(userProfilesApiUrl, {
         method: 'GET',
         headers: {
             'Authorization': `Token ${token}`,
@@ -20,65 +22,88 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return response.json();
     })
-    .then(data => {
-        let followersHtml = '';
+    .then(users => {
+        const currentUser = users.find(user => user.id == userId);
+        const followerIds = currentUser.followers.map(follow => follow.follower);
 
-        const followerPromises = data.followers.map(follower => {
-            return fetch(`${userProfilesApiUrl}${follower.follower}/`, {
-                method: 'GET',
+        let followersList = users.filter(user => 
+            user.id !== currentUser.id && followerIds.includes(user.id)
+        );
+
+        function renderFollowers(filteredFollowers) {
+            if (filteredFollowers.length > 0) {
+                const followersHtml = filteredFollowers.map(user => {
+                    return `
+                        <div class="friend-item" data-user-id="${user.id}">
+                            <div class="friend-name">
+                                <img src="${user.image || 'images/member-placeholder.png'}" alt="${user.username}">
+                                <div class="friend-info">
+                                    <h3>${user.username}</h3>
+                                    <small>${user.first_name} ${user.last_name}</small>
+                                </div>
+                            </div>
+                            <div class="friend-actions">
+                                <button class="remove-button" onclick="removeFollower(${user.id})">Remove</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                friendListGrid.innerHTML = followersHtml;
+            } else {
+                friendListGrid.innerHTML = '<p>No followers available.</p>';
+            }
+        }
+
+        renderFollowers(followersList);
+
+        function searchFollowers() {
+            const searchText = searchInput.value.toLowerCase();
+            const filteredFollowers = followersList.filter(user => {
+                const username = user.username.toLowerCase();
+                const name = (user.first_name + ' ' + user.last_name).toLowerCase();
+                return username.includes(searchText) || name.includes(searchText);
+            });
+            renderFollowers(filteredFollowers);
+        }
+
+        searchButton.addEventListener('click', searchFollowers);
+        searchInput.addEventListener('input', searchFollowers);
+    })
+    .catch(error => console.error('Error fetching followers:', error));
+
+    window.removeFollower = async function(followerUserId) {
+        try {
+            const removeResponse = await fetch(`${followersApiUrl}?main_user=${userId}&follower=${followerUserId}`, {
+                method: 'DELETE',
                 headers: {
                     'Authorization': `Token ${token}`,
                     'Content-Type': 'application/json'
                 }
-            })
-            .then(response => response.json())
-            .then(followerData => {
-                return `
-                    <div class="friend-item">
-                        <div class="friend-name">
-                            <img src="${followerData.image || 'images/member-placeholder.png'}" alt="${followerData.username}">
-                            <div class="friend-info">
-                                <h3>${followerData.username}</h3>
-                                <small>${followerData.first_name} ${followerData.last_name}</small>
-                            </div>
-                        </div>
-                        <div>
-                            <button>Remove</button>
-                        </div>
-                    </div>
-                `;
-            })
-            .catch(error => {
-                console.error(`Error fetching follower data for follower ID ${follower.follower}:`, error);
-                return '';
             });
-        });
 
-        // Display followers
-        Promise.all(followerPromises).then(followerHtmlArray => {
-            friendListGrid.innerHTML = followerHtmlArray.join('');
-        });
-    })
-    .catch(error => console.error('Error fetching user profile:', error));
-
-    // Handle search functionality
-    searchButton.addEventListener('click', function() {
-        const searchText = searchInput.value.toLowerCase();
-        const friendItems = document.querySelectorAll('.friend-item');
-        
-        friendItems.forEach(item => {
-            const username = item.querySelector('.friend-info h3').textContent.toLowerCase();
-            const name = item.querySelector('.friend-info small').textContent.toLowerCase();
-            if (username.includes(searchText) || name.includes(searchText)) {
-                item.style.display = 'block';
-            } else {
-                item.style.display = 'none';
+            if (!removeResponse.ok) {
+                throw new Error('Failed to remove follower');
             }
-        });
-    });
+            const unfollowerResponse = await fetch(`${followingsApiUrl}?main_user=${followerUserId}&following=${userId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
 
-    // Handle input change for live search
-    searchInput.addEventListener('input', function() {
-        searchButton.click(); // Trigger the search button click
-    });
+            if (!unfollowerResponse.ok) {
+                throw new Error('Failed to remove from followers');
+            }            
+
+            const button = document.querySelector(`.friend-item[data-user-id="${followerUserId}"] .remove-button`);
+            button.innerText = 'Removed';
+            button.disabled = true;
+            button.style.background = '#dddddd';
+            button.style.cursor = 'not-allowed';
+
+        } catch (error) {
+            console.error('Error removing follower:', error);
+        }
+    };
 });
