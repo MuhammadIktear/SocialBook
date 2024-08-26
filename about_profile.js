@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const profileHtml = `
             <img src="${data.image || 'images/profile-pic.png'}" alt="">
             <h4>About</h4>
-            <p>${data.bio || 'No bio available.'}</p>
+            <p>${data.about || 'No bio available.'}</p>
             <h4>Joined</h4>
             <p>${new Date(data.created_at).toLocaleDateString()}</p>
             <h4>Email</h4>

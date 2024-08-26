@@ -1,0 +1,81 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.about{
+    background: url(image2.jpg) no-repeat left;
+    background-size: 65%;
+    background-color: #fdfdfd;
+    overflow: hidden;
+    padding: 100px 0;
+}
+.inner-section{
+    margin: -45px 0;
+    width: 55%;
+    height: 700px;
+    float: right;
+    background-color: #fdfdfd;
+    padding: 80px;
+    box-shadow: 10px 10px 8px rgba(0,0,0,0.3);
+}
+.inner-section h1{
+    margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: 900;
+}
+.text{
+    font-size: 16px;
+    color: #545454;
+    line-height: 30px;
+    text-align: justify;
+    margin-bottom: 40px;
+}
+.skills button{
+    font-size: 22px;
+    text-align: center;
+    letter-spacing: 2px;
+    border: none;
+    border-radius: 20px;
+    padding: 8px;
+    width: 200px;
+    background-color: #1774aa;
+    color: white;
+    cursor: pointer;
+}
+.skills button:hover{
+    transition: 1s;
+    background-color: #ecf5f5;
+    color: #2f3131;
+}
+h1{
+    color: #545454;
+}
+@media screen and (max-width:1200px){
+    .inner-section{
+        padding: 80px;
+    }
+}
+@media screen and (max-width:1000px){
+    .about{
+        background-size: 100%;
+        padding: 100px 40px;
+    }
+    .inner-section{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:600px){
+    .about{
+        padding: 0;
+    }
+    .inner-section{
+        padding: 60px;
+    }
+    .skills button{
+        font-size: 19px;
+        padding: 5px;
+        width: 160px;
+    }
+}

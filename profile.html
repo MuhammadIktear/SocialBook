@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SocialBook</title>
+    <title>Phibook Profile</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="input_image.css">
+    <link rel="stylesheet" href="edit_delete_post.css">   
+    
     <script src="https://kit.fontawesome.com/1aa83cb145.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -40,10 +44,6 @@
             <div class="settings-menu-inner">
                 <div class="user-profile">
                     <img src="images/profile-pic.png" alt="">
-                    <div>
-                        <p>Jhon Nibichon</p>
-                        <a href="#">See your profile</a>
-                    </div>
                 </div>
                 <hr>
                 <div class="settings-link">
@@ -53,17 +53,11 @@
             </div>
         </div>
     </nav>
-   
     <div class="container">        
         <!-- left-sidebar -->
         <div class="left-sidebar">
             <div class="imp-links">
-                <h4>About</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui assumenda ea a placeat laboriosam facilis neque repudiandae voluptates quaerat doloribus?</p>
-                <h4>Joined</h4>
-                <p>November 15, 2017</p>
-                <h4>Email</h4>
-                <p>abc@gmail.com</p>
+
             </div>
             <div class="sidebar-title">
                 <h4>Latest Photos</h4>
@@ -77,256 +71,126 @@
             </div>  
             <div class="sidebar-title">
                 <h4>Suggestions for you</h4>
-                <a href="#">See All</a>
+                <a class="see-all-suggestions" style="display: none;" href="following_suggest.html">See All</a>
             </div> 
-            
-            <div class="online-list">
-                <div class="online">
-                    <img src="images/member-1.png">
-                </div>
-                <div>
-                    <p>Alison Mina</p>
-                    <small>Suggested for you</small>
-                </div>
-
-                <a href="#">Follow</a>
-            </div>
-            <div class="online-list">
-                <div class="online">
-                    <img src="images/member-2.png">
-                </div>
-                <div>
-                    <p>Jackson Aston</p>
-                    <small>Suggested for you</small>
-                </div>
-                <a href="#">Follow</a>
-            </div>
-            <div class="online-list">
-                <div class="online">
-                    <img src="images/member-2.png">
-                </div>
-                <div>
-                    <p>Jackson Aston</p>
-                    <small>Suggested for you</small>
-                </div>
-                <a href="#">Follow</a>
-            </div>
-            <div class="online-list">
-                <div class="online">
-                    <img src="images/member-2.png">
-                </div>
-                <div>
-                    <p>Jackson Aston</p>
-                    <small>Suggested for you</small>
-                </div>
-                <a href="#">Follow</a>
-            </div>                        
+        <div class="suggestions-list">           
+        </div>
+                                  
         </div>
         <!-- main-content -->
-        <div class="main-sidebar">
+        <div class="main-sidebar">  
             <div class="profile">
-                <div class="profile-image">        
-                    <img src="https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces" alt="">        
-                </div>  
-                <div>
-                    <div class="profile-user-settings">        
-                        <h1 class="profile-user-name">janedoe_</h1>        
-                        <button class="btn profile-edit-btn">Edit Profile</button>        
-                        <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>        
-                    </div>        
-                    <div class="profile-stats">        
-                        <ul>
-                            <li><span class="profile-stat-count">164</span> posts</li>
-                            <li><span class="profile-stat-count">188</span> followers</li>
-                            <li><span class="profile-stat-count">206</span> following</li>
-                        </ul>    
-                        <p><span class="profile-real-name">Jane Doe</span> Lorem ipsum dolor sit, amet consectetur adipisicing elit 📷✈️🏕️</p>    
-                    </div>                      
-                </div>        
+       
             </div>     
             <hr>        
-            <div class="post-container">
-                <div class="post-row">
-                    <div class="user-profile">
-                        <img src="images/profile-pic.png" alt="">
-                        <div>
-                            <p>Jhon Nibichon</p>
-                            <span>June 24 2021, 13:40 pm</span>
-                        </div>
+                <div class="user-profile-post">
+
+                </div>
+
+
+
+<!-- Toast -->
+<div id="update_profile_toast" style="display:none;">
+    <div class="edit_profile">
+        <div class="Edit_Info">
+            <h3>Edit Intro</h3>
+            <button onclick="hideToast()">x</button>
+        </div>
+        <hr>
+        <div class="edit_sec">
+            <div class="alert" id="alert-container" style="display: none;">
+                <span id="alert-message"></span>
+                <i class="fa-solid fa-x" id="close-alert"></i>
+            </div>
+            <div>
+                <div class="profile_image">
+                    <div class="update_image">
+                        <img id="profile-image" src="/images/profile-pic.png" alt="">
+                        <input type="file" id="image-upload">
+                        <button onclick="updateImage()">Update Image</button>
                     </div>
-                    <div onclick="toggleMenu(event, this)">
-                        <a href="javascript:void(0);"><i class="fa-solid fa-ellipsis"></i></a>     
-                        <div class="edit-menu" style="display: none;">
-                            <div class="edit-menu-inner">
-                                <div class="edit-link">
-                                    <a href="#">Edit</a>
-                                    <a href="#">Delete</a>
-                                </div>
-                            </div>
-                        </div>                                         
-                    </div>
-                </div> 
-                <p class="post-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi natus reprehenderit quas perspiciatis debitis, soluta officiis eum saepe. Aut libero maxime sapiente, qui eum hic autem voluptates ipsum rem soluta.</p>  
-                <img src="images/feed-image-1.png" class="post-img">  
-                <div class="post-row">
-                    <div class="activity-icons">
-                        <div><img src="images/like-blue.png">120</div>
-                        <div onclick="Comments()"><img src="images/comments.png">120</div>
-                        <div><img src="images/share.png">120</div>
-                    </div>
-                </div> 
-                <div class="all-comments" style="display: none;">
-                    <div class="comments">
-                        <img src="images/profile-pic.png">
-                        <div class="single-comment">
-                            <div class="ellipsis-icon">
-                                <div>
-                                    <p>Jackson Aston</p>
-                                    <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos ab autem quisquam illum obcaecati fugit eligendi ipsam repellat sint soluta!</small>
-                                </div>
-                                <div onclick="toggleMenu(event, this)">
-                                    <a href="javascript:void(0);"><i class="fa-solid fa-ellipsis"></i></a>     
-                                    <div class="edit-menu" style="display: none;">
-                                        <div class="edit-menu-inner">
-                                            <div class="edit-link">
-                                                <a href="#">Edit</a>
-                                                <a href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </div>                                         
-                                </div>
-                            </div>
-                        </div>
-                    </div>  
-                    <div class="comments">
-                        <img src="images/profile-pic.png">
-                        <div class="single-comment">
-                            <div class="ellipsis-icon">
-                                <div>
-                                    <p>Jackson Aston</p>
-                                    <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos ab autem quisquam illum obcaecati fugit eligendi ipsam repellat sint soluta!</small>
-                                </div>
-                                <div onclick="toggleMenu(event, this)">
-                                    <a href="javascript:void(0);"><i class="fa-solid fa-ellipsis"></i></a>     
-                                    <div class="edit-menu" style="display: none;">
-                                        <div class="edit-menu-inner">
-                                            <div class="edit-link">
-                                                <a href="#">Edit</a>
-                                                <a href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </div>                                         
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                    <div class="comments">
-                        <img src="images/profile-pic.png">
-                        <div class="single-comment">
-                            <div class="ellipsis-icon">
-                                <div>
-                                    <p>Jackson Aston</p>
-                                    <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</small>
-                                </div>
-                                <div onclick="toggleMenu(event, this)">
-                                    <a href="javascript:void(0);"><i class="fa-solid fa-ellipsis"></i></a>     
-                                    <div class="edit-menu" style="display: none;">
-                                        <div class="edit-menu-inner">
-                                            <div class="edit-link">
-                                                <a href="#">Edit</a>
-                                                <a href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </div>                                         
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                    <div class="send-comments">
-                        <textarea rows="2" placeholder="Comment as Jhon Wick"></textarea>                
-                        <div class="add-post-links">
-                            <a href="#"><img src="images/send message.png">Send</a>
-                        </div>
-                    </div>  
+                </div>
+                <div class="first_name">
+                    <p>First Name</p>
+                    <input type="text" id="first-name" placeholder="Your First Name">
+                </div>
+                <div class="last_name">
+                    <p>Last Name</p>
+                    <input type="text" id="last-name" placeholder="Your Last Name">
+                </div>
+                <div class="bio">
+                    <p>Bio</p>
+                    <textarea id="bio" rows="2" placeholder="Write a brief summary of your professional background and expertise."></textarea>
+                </div>
+                <div class="about">
+                    <p>About</p>
+                    <textarea id="about" rows="3" placeholder="Describe your mission, values, and what drives you or your company."></textarea>
+                </div>
+                <div class="button_right">
+                    <button onclick="saveProfile()">Save</button>
                 </div>
             </div>
-            <div class="post-container">
-                <div class="post-row">
-                    <div class="user-profile">
-                        <img src="images/profile-pic.png" alt="">
-                        <div>
-                            <p>Jhon Nibichon</p>
-                            <span>June 24 2021, 13:40 pm</span>
-                        </div>
-                    </div>
-                    <a href="#"><i class="fa-solid fa-ellipsis-v"></i></a>
-                </div> 
-                <p class="post-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi natus reprehenderit quas perspiciatis debitis, soluta officiis eum saepe. Aut libero maxime sapiente, qui eum hic autem voluptates ipsum rem soluta.</p>  
-                <img src="images/feed-image-2.png" class="post-img">  
-                <div class="post-row">
-                    <div class="activity-icons">
-                        <div><img src="images/like-blue.png">120</div>
-                        <div><img src="images/comments.png">120</div>
-                        <div><img src="images/share.png">120</div>
-                    </div>
-                    <div class="post-profile-icon">
-                        <img src="images/profile-pic.png"><i class="fa-solid fa-caret-down"></i>
-                    </div>
-                </div>           
-            </div>
-            <div class="post-container">
-                <div class="post-row">
-                    <div class="user-profile">
-                        <img src="images/profile-pic.png" alt="">
-                        <div>
-                            <p>Jhon Nibichon</p>
-                            <span>June 24 2021, 13:40 pm</span>
-                        </div>
-                    </div>
-                    <a href="#"><i class="fa-solid fa-ellipsis-v"></i></a>
-                </div> 
-                <p class="post-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi natus reprehenderit quas perspiciatis debitis, soluta officiis eum saepe. Aut libero maxime sapiente, qui eum hic autem voluptates ipsum rem soluta.</p>  
-                <img src="images/feed-image-3.png" class="post-img">  
-                <div class="post-row">
-                    <div class="activity-icons">
-                        <div><img src="images/like-blue.png">120</div>
-                        <div><img src="images/comments.png">120</div>
-                        <div><img src="images/share.png">120</div>
-                    </div>
-                    <div class="post-profile-icon">
-                        <img src="images/profile-pic.png"><i class="fa-solid fa-caret-down"></i>
-                    </div>
-                </div>           
-            </div>
-            <div class="post-container">
-                <div class="post-row">
-                    <div class="user-profile">
-                        <img src="images/profile-pic.png" alt="">
-                        <div>
-                            <p>Jhon Nibichon</p>
-                            <span>June 24 2021, 13:40 pm</span>
-                        </div>
-                    </div>
-                    <a href="#"><i class="fa-solid fa-ellipsis-v"></i></a>
-                </div> 
-                <p class="post-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi natus reprehenderit quas perspiciatis debitis, soluta officiis eum saepe. Aut libero maxime sapiente, qui eum hic autem voluptates ipsum rem soluta.</p>  
-                <img src="images/feed-image-4.png" class="post-img">  
-                <div class="post-row">
-                    <div class="activity-icons">
-                        <div><img src="images/like.png">120</div>
-                        <div><img src="images/comments.png">120</div>
-                        <div><img src="images/share.png">120</div>
-                    </div>
-                    <div class="post-profile-icon">
-                        <img src="images/profile-pic.png"><i class="fa-solid fa-caret-down"></i>
-                    </div>
-                </div>           
-            </div>                                    
+        </div>
+    </div>
+</div>
+
+<!-- Edit Toast -->
+<div id="overlay2" class="overlay2"></div>
+<div id="edit-toast">
+    <div class="toast-header">
+        <h3 id="toastTitle">Edit Post</h3>
+        <button onclick="hideEditToast()">×</button>
+    </div>
+    <div class="toast-content">
+        <div class="set_">
+            <label for="edit-image"><img src="images/another_photo.png"></label>
+            <input type="file" id="edit-image" accept="image/*" onchange="previewEditImage(event)">
+        </div>
+        <div class="set_">
+            <label for="edit-video"><img src="images/another_video.png"></label>
+            <input type="file" id="edit-video" accept="video/*" onchange="previewEditVideo(event)">            
+        </div>
+        <img id="edit-image-preview" style="display:none; width:100%;" />
+        <video id="edit-video-preview" controls style="display:none; width:100%;"></video>
+        <textarea id="edit-caption" placeholder="Edit your post..."></textarea>
+        <div class="set_button">
+            <button onclick="updatePost()">Save Changes</button>
+            <button onclick="hideEditToast()">Cancel</button>
         </div>
 
     </div>
+</div>
 
-    <!-- script  -->
+<!-- Delete Confirmation -->
+<div id="confirm-delete">
+    <button class="close" onclick="hideDeleteConfirm()">×</button>
+    <div class="confirmation-content">
+        <p>Are you sure you want to delete this post?</p>
+        <div class="set_button">
+            <button onclick="confirmDelete()">Yes, Delete</button>
+            <button onclick="hideDeleteConfirm()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+            <div id="posts-container" class="posts-container">
+
+            </div>
+
+    </div>
+
+    <script src="all_post_profile.js"></script>
+     <script src="suggetions.js"></script>
+     <script src="following_suggest.js"></script>
+     <script src="profile.js"></script>
      <script src="script.js"></script>
+     <script src="images.js"></script>
+     <script src="upload_file.js"></script>
+     <script src="send_comment.js"></script>
+     <script src="edit_comment.js"></script>
+     <script src="delete_comment.js"></script>
+     <script src="edit_delete_post.js"></script>
+     <script src="like.js"></script>
+     <script src="edit_profile.js"></script>
 </body>
 </html>

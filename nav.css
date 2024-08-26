@@ -1,0 +1,75 @@
+:root{
+    --body-color:#efefef;
+    --nav-color: #003780;
+    --bg-color:#fff;
+}
+.dark-theme{
+    --body-color:#0a0a0a;
+    --nav-color: #000;
+    --bg-color:#000;    
+}
+
+body{
+    background: var(--body-color);
+    transform: background 0.3s;
+}
+
+nav{
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    justify-content: space-between;
+    background: var(--nav-color);
+    padding: 7px 5%;
+}
+.logo{
+    width: 160px;
+    margin-right: 45px;
+}
+.P{
+    font-size: 35px;
+    color:#003780;
+    background-color: #ffffff;
+    padding: 0 5px;
+    border-radius: 2px;
+    margin-right: 2px;
+}
+.phibook{
+    font-size: 28px;
+    color: #f5f3f3;
+    letter-spacing: 0.8px;
+    margin-right: 20px;
+}
+.nav-left,.nav-right{
+    display: flex;
+    align-items: center;
+}
+.nav-left ul li{
+    list-style: none;
+    display: inline-block;
+}
+.nav-left ul li img{
+    width: 28px;
+    margin: 0 13px;
+}
+.nav-user-icon img{
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.nav-user-icon{
+    margin-left: 30px;
+}
+
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }  
+    .nav-left {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+}

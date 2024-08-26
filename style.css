@@ -6,7 +6,7 @@
 }
 :root{
     --body-color:#efefef;
-    --nav-color: #1876f2;
+    --nav-color: #003780;
     --bg-color:#fff;
 }
 .dark-theme{
@@ -28,7 +28,7 @@ nav{
     z-index: 1000;
     justify-content: space-between;
     background: var(--nav-color);
-    padding: 5px 5%;
+    padding: 7px 5%;
 }
 .logo{
     width: 160px;
@@ -36,7 +36,7 @@ nav{
 }
 .P{
     font-size: 35px;
-    color:#1876f2;
+    color:#003780;
     background-color: #ffffff;
     padding: 0 5px;
     border-radius: 2px;
@@ -147,6 +147,12 @@ nav{
 .imp-links a:last-child{
     color: #1876f2;
 }
+.imp-links p{
+    letter-spacing: 1.1px;
+    line-height: 22px;
+    font-size: 14px;
+    font-weight: 300;
+}
 .imp-links{
     border-bottom: 1px solid #ccc;
 }
@@ -227,6 +233,10 @@ nav{
 .online{
     display: flex;
 }
+.online img{
+    height: 45px;
+}
+
 .suggestions-list{
     display: block;
 }
@@ -516,7 +526,6 @@ nav{
 }
 .send-comments textarea{
     padding: 10px;
-    border-radius: 10px;
     width: 100%;
     border: 0;
     outline: 0;
@@ -581,9 +590,8 @@ nav{
     height: auto; 
     max-width: 800px;
     border: 2px solid #ddd; 
-    border-radius: 8px; 
+    border-radius: 3px; 
     display: block; 
-    margin: 0 auto; 
 }
 
 /* Style the textarea */
