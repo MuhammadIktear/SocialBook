@@ -17,7 +17,9 @@
 
 body{
     background: var(--body-color);
-    transform: background 0.3s;
+}
+a{
+    text-decoration: none;
 }
 
 nav{
@@ -166,17 +168,20 @@ nav{
     color: #626262;
     font-weight: 500;
 }
-.sidebar-title{
+
+.sidebar-title,.Advertisements{
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 18px;
 }
-.right-sidebar h4{
+
+.right-sidebar h4,.Advertisements h4{
     font-weight: 600;
     font-size: 16px;
 }
-.sidebar-title a{
+.sidebar-title a,.Advertisements a{
+    cursor: pointer;
     text-decoration: none;
     color:#1876f2;
     font-size: 12px;
@@ -254,6 +259,9 @@ nav{
     gap: 20px;
     display: flex;
 }
+.ellipsis-icon p{
+    color: #4e4d4d;
+}
 .single-comment{
     border-radius: 20px;
     padding: 10px;
@@ -299,8 +307,9 @@ nav{
     margin-right: 10px;
 }
 .user-profile p{
- font-weight: 400;
- color: #626262;
+font-size: 17.5px;
+ font-weight: 500;
+ color: #5a5858;
 }
 .user-profile small{
     font-size: 12px;
@@ -319,8 +328,8 @@ nav{
     padding-top: 20px;
 }
 .post-input-container textarea{
+    background-color: var(--body-color);
     padding: 10px;
-    border-radius: 10px;
     width: 100%;
     border: 0;
     outline: 0;
@@ -464,6 +473,29 @@ nav{
     padding-left: 23px;
     background: #222222;
 }
+
+.suggested_post{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.suggested_post p{
+    font-size: 18px;
+    margin: 10px 0;
+    margin-bottom: 22px;
+    color: #3a3939;
+}
+.b_suggest{
+    font-size: 30px;
+    margin-left: 5px;
+}
+.button_suggest{
+    margin-left: -8px;
+    background: none;
+    color: #4981ca;
+    font-size: 16px;
+    font-weight: 600;
+}
 @media (max-width: 1024px) {
     .container {
         flex-direction: column;
@@ -525,6 +557,7 @@ nav{
     padding-top: 20px;
 }
 .send-comments textarea{
+    background-color: var(--body-color);
     padding: 10px;
     width: 100%;
     border: 0;
@@ -593,9 +626,13 @@ nav{
     border-radius: 3px; 
     display: block; 
 }
-
+.single-comment{
+    background-color: var(--body-color);
+}
 /* Style the textarea */
 textarea[id^="edit-comment-text-"] {
+    background-color: var(--body-color);
+    color: #626262;
     min-width: 400px;
     margin-top: 10px;
     padding: 10px;
@@ -626,4 +663,14 @@ button:hover {
 /* Optional: Add some spacing to the container div */
 #comment-container {
     margin-bottom: 16px;
+}
+.suggestions{
+    margin-top: -15px;
+}
+.suggestions p{
+    color: #4b4b4b;
+}
+.small_suggest{
+    color: #4e4d4d;
+    font-weight: 400;
 }

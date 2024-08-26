@@ -7,14 +7,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let userProfiles = {};
     let currentUser = '';
+    let followingIds = [];
 
-    // Fetch user profiles
-    fetch(userProfilesApiUrl, {
+    // Fetch the logged-in user's profile
+    fetch(`${userProfilesApiUrl}${userId}/`, {
         method: 'GET',
         headers: {
             'Authorization': `Token ${token}`,
             'Content-Type': 'application/json'
         }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(userProfile => {
+        currentUser = userProfile.username;
+        followingIds = userProfile.following.map(f => f.following); // Get the list of users the current user is following
+
+        // Fetch all user profiles
+        return fetch(userProfilesApiUrl, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
     })
     .then(response => {
         if (!response.ok) {
@@ -29,9 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 username: profile.username,
                 image: profile.image || 'images/profile-pic.png' // Default image if none provided
             };
-            if (profile.id == userId) {
-                currentUser = profile.username;
-            }
         });
 
         // Fetch posts
@@ -55,12 +72,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 const postElement = document.createElement('div');
                 postElement.classList.add('post-container');
 
+                const postCreatorId = post.created_by;
+                const isFollowing = followingIds.includes(postCreatorId);
+                const showSuggestion = !isFollowing && postCreatorId !== parseInt(userId);
+                const postKey = `post-${userId}-${post.id}`;
+
+                if (isFollowing) {
+                    localStorage.removeItem(postKey);
+                } else {
+                    const isHidden = localStorage.getItem(postKey) === 'true';
+                    if (isHidden) return;
+                }
+
+
                 const postHtml = `
+                    ${showSuggestion ? `
+                    <div class="suggested_post" data-post-id="${post.id}">
+                        <p>Suggested for you</p>
+                        <i class="fa-solid fa-x close-btn"></i> 
+                    </div>` : ''}
                     <div class="post-row" id="post-${post.id}">
                         <div class="user-profile">
-                            <img src="${userProfiles[post.created_by]?.image || 'images/profile-pic.png'}" alt="Profile Image">
+                            <a href="profile.html?id=${post.created_by}">
+                                <img src="${userProfiles[post.created_by]?.image || 'images/profile-pic.png'}" alt="Profile Image">
+                            </a>
                             <div>
-                                <p>${userProfiles[post.created_by]?.username || 'Unknown User'}</p>
+                                <a href="profile.html?id=${post.created_by}">
+                                    <p>${userProfiles[post.created_by]?.username || 'Unknown User'}${showSuggestion ? `<b class="b_suggest"><button class="button_suggest" onclick="followUser(${post.created_by})">Follow</button></b>` : ''}</p>
+                                </a>
                                 <span>${new Date(post.created_at).toLocaleString()}</span>
                             </div>
                         </div>
@@ -83,7 +122,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     ${post.video ? `<video controls class="post-video"><source src="${post.video}" type="video/mp4">Your browser does not support the video tag.</video>` : ''}
                     <div class="post-row">
                         <div class="activity-icons">
-                            <!-- Like button that toggles based on user's like status -->
                             <div id="like-button-${post.id}" class="like-button" data-post-id="${post.id}" onclick="toggleLike(${post.id})">
                                 <div id="liked-${post.id}" class="like-status" style="display: none;">
                                     <img src="images/like-blue.png" /> <span id="like-count-${post.id}">${post.likes.length}</span>
@@ -97,47 +135,51 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div><img src="images/share.png">0</div>
                         </div>
                     </div> 
-                        <div class="all-comments" style="display: none;">
-                            <!-- Comments Container -->
-                            <div id="comments-container-${post.id}">
-                                ${post.comments.map(comment => `
-                                    <div class="comments" id="comment-${comment.id}">
+                    <div class="all-comments" style="display: none;">
+                        <div id="comments-container-${post.id}">
+                            ${post.comments.map(comment => `
+                                <div class="comments" id="comment-${comment.id}">
+                                    <a href="profile.html?id=${comment.user}">
                                         <img src="${userProfiles[comment.user]?.image || 'images/profile-pic.png'}" alt="Profile Image">
-                                        <div class="single-comment">
-                                            <div class="ellipsis-icon">
-                                                <div>
+                                    </a>
+                                    <div class="single-comment">
+                                        <div class="ellipsis-icon">
+                                            <div>
+                                                <a href="profile.html?id=${comment.user}">
                                                     <p>${userProfiles[comment.user]?.username || 'Unknown User'}</p>
-                                                    <small>${comment.comment}</small>
-                                                </div>
-                                                ${comment.user == userId ? `
-                                                <div onclick="toggleCommentMenu(event, this)">
-                                                    <a href="javascript:void(0);"><i class="fa-solid fa-ellipsis"></i></a>     
-                                                    <div class="edit-comment-menu" style="display: none;">
-                                                        <div class="edit-menu-inner">
-                                                            <div class="edit-link">
-                                                                <a onclick="editComment(${comment.id})">Edit</a>
-                                                                <a onclick="deleteComment(${comment.id})">Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>                                         
-                                                </div>` : ''}
+                                                </a>
+                                                <small>${comment.comment}</small>
                                             </div>
+                                            ${comment.user == userId ? `
+                                            <div onclick="toggleCommentMenu(event, this)">
+                                                <a href="javascript:void(0);"><i class="fa-solid fa-ellipsis"></i></a>     
+                                                <div class="edit-comment-menu" style="display: none;">
+                                                    <div class="edit-menu-inner">
+                                                        <div class="edit-link">
+                                                            <a onclick="editComment(${comment.id})">Edit</a>
+                                                            <a onclick="deleteComment(${comment.id})">Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </div>                                         
+                                            </div>` : ''}
                                         </div>
                                     </div>
-                                `).join('')}
-                            </div>
-                            <!-- Textarea and Send Button -->
-                            <div class="send-comments">
-                                <textarea id="comment-text-${post.id}" rows="2" placeholder="Comment as ${currentUser}"></textarea>               
-                                <div class="add-post-links">
-                                    <a onclick="sendComment(${post.id})"><img src="images/send message.png">Send</a>
                                 </div>
-                            </div>  
+                            `).join('')}
                         </div>
+                        <div class="send-comments">
+                            <textarea id="comment-text-${post.id}" rows="2" placeholder="Comment as ${currentUser}"></textarea>               
+                            <div class="add-post-links">
+                                <a onclick="sendComment(${post.id})"><img src="images/send message.png">Send</a>
+                            </div>
+                        </div>  
+                    </div>
                 `;
 
                 postElement.innerHTML = postHtml;
                 postsContainer.appendChild(postElement);
+
+                // Handle the like status
                 const userHasLiked = post.likes.some(like => like.user == userId);
                 const likedDiv = document.getElementById(`liked-${post.id}`);
                 const notLikedDiv = document.getElementById(`not-liked-${post.id}`);
@@ -150,12 +192,31 @@ document.addEventListener('DOMContentLoaded', function() {
                     notLikedDiv.style.display = 'block';
                 }
             });
+
+            // Attach event listeners to close buttons
+            document.querySelectorAll('.close-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const postId = this.parentElement.getAttribute('data-post-id');
+                    const postKey = `post-${userId}-${postId}`;
+                    localStorage.setItem(postKey, 'true'); // Mark the post as hidden for this specific user
+                    const postElement = this.closest('.post-container'); // Get the post element
+                    if (postElement) {
+                        postElement.remove(); // Remove the post element from the DOM
+                    }
+                });
+            });
         } else {
             console.error('Unexpected response format:', data);
         }
     })
-    .catch(error => console.error('Error fetching posts:', error));
+    .catch(error => console.error('Error fetching data:', error));
 });
+
+
+function followUser(userId) {
+    // Add the logic to follow the user via API
+    console.log(`Follow user with ID: ${userId}`);
+}
 
 function toggleMenu(event, element) {
     event.stopPropagation();

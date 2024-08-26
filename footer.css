@@ -2,10 +2,23 @@
     padding: 0;
     margin: 0;
 }
-
-body {
-    font-family: 'Poppins', sans-serif;
+:root{
+    --body-color:#efefef;
+    --nav-color: #003780;
+    --bg-color:#fff;
 }
+.dark-theme{
+    --body-color:#0a0a0a;
+    --nav-color: #000;
+    --bg-color:#000;    
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background: var(--body-color);
+    transform: background 0.3s;
+}
+
 footer {
     position: fixed;
     bottom: 0;
@@ -21,7 +34,7 @@ footer {
 }
 
 .footer-distributed {
-    background: #ffffff;
+    background: var(--body-color);
     box-sizing: border-box;
     width: 100%;
     max-height: 198px;

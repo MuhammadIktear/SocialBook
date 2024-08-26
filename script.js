@@ -2,6 +2,7 @@ var settingsmenu = document.querySelector(".settings-menu");
 var editmenu = document.querySelector(".edit-menu");
 var darkBtn = document.getElementById("dark-btn");
 var message = document.querySelector(".all-comments")
+var adSection = document.querySelector(".Advertisements_sec");
 
 function Comments() {
     if (message.style.display === "block") {
@@ -35,6 +36,9 @@ function toggleCommentMenu(event, element) {
     }
 }
 
+function hideAd() {
+    adSection.style.display = "none";
+}
 
 darkBtn.onclick = function() {
     darkBtn.classList.toggle("dark-btn-on");

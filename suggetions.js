@@ -38,12 +38,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 return `
                     <div class="online-list">
                         <div class="suggested" data-user-id="${user.id}">
+                        <a href="profile.html?id=${user.id}">
                             <div class="online">
                                 <img src="${user.image || 'images/member-1.png'}" alt="${user.username}">
-                            </div>
-                            <div>
-                                <p>${user.first_name} ${user.last_name}</p>
-                                <small>Suggested for you</small>
+                            </div>                        
+                        </a>
+                            <div class="suggestions suggestions_another">
+                                <a href="profile.html?id=${user.id}">
+                                <p>${user.first_name} ${user.last_name}</p>                                
+                                <small class="small_suggest">Suggested for you</small>
+                                </a>
                             </div>
                         </div>
                         <div>

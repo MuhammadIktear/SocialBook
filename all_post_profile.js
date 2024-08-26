@@ -58,10 +58,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 const postHtml = `
                     <div class="post-row" id="post-${post.id}">
                         <div class="user-profile">
+                            <a href="profile.html?id=${post.created_by}">
                             <img src="${userProfiles[post.created_by]?.image || 'images/profile-pic.png'}" alt="Profile Image">
+                            </a>
                             <div>
+                                <a href="profile.html?id=${post.created_by}">
                                 <p>${userProfiles[post.created_by]?.username || 'Unknown User'}</p>
                                 <span>${new Date(post.created_at).toLocaleString()}</span>
+                                </a>
                             </div>
                         </div>
                         ${post.created_by == parseInt(userId) ? `
@@ -102,12 +106,16 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div id="comments-container-${post.id}">
                                 ${post.comments.map(comment => `
                                     <div class="comments" id="comment-${comment.id}">
+                                        <a href="profile.html?id=${comment.user}">
                                         <img src="${userProfiles[comment.user]?.image || 'images/profile-pic.png'}" alt="Profile Image">
+                                        </a>
                                         <div class="single-comment">
                                             <div class="ellipsis-icon">
                                                 <div>
+                                                    <a href="profile.html?id=${comment.user}">
                                                     <p>${userProfiles[comment.user]?.username || 'Unknown User'}</p>
                                                     <small>${comment.comment}</small>
+                                                    <a/>
                                                 </div>
                                                 ${comment.user == userId ? `
                                                 <div onclick="toggleCommentMenu(event, this)">

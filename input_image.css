@@ -1,3 +1,13 @@
+:root{
+    --body-color:#efefef;
+    --nav-color: #003780;
+    --bg-color:#fff;
+}
+.dark-theme{
+    --body-color:#0a0a0a;
+    --nav-color: #000;
+    --bg-color:#000;    
+}
 .overlay {
     display: none; 
     position: fixed;
@@ -15,7 +25,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #fff;
+    background-color: var(--body-color);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 90%;
@@ -107,6 +117,7 @@ input[type="file"] {
 }
 
 textarea {
+    background-color: var(--body-color);
     margin-top: 10px;
     padding: 10px;
     width: 100%;
@@ -123,5 +134,8 @@ textarea {
 #videoInput{
     display: block;
 }
-
+.toast-header button{
+    background: none;
+    color: #585858;
+}
 

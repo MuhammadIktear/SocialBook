@@ -1,14 +1,29 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5; /* Light gray background */
+*{
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    font-family: 'poppins',sans-serif;
+    box-sizing: border-box;
 }
+:root{
+    --body-color:#efefef;
+    --nav-color: #003780;
+    --bg-color:#fff;
+}
+.dark-theme{
+    --body-color:#0a0a0a;
+    --nav-color: #000;
+    --bg-color:#000;    
+}
+
+body{
+    background: var(--body-color);
+}
+
 
 .friend-list {
     max-width: 1200px;
-    margin: 0 auto;
-    background-color: #ffffff; /* White background */
+    margin: 20px auto;
+    background-color: var(--body-color);
     border-radius: 8px;
     padding: 16px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -126,4 +141,7 @@ body {
         width: 100%;
         margin-top: 10px;
     }
+}
+a{
+    text-decoration: none;
 }

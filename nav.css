@@ -11,9 +11,7 @@
 
 body{
     background: var(--body-color);
-    transform: background 0.3s;
 }
-
 nav{
     display: flex;
     align-items: center;

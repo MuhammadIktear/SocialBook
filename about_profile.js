@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     .then(followerData => {
                         return `
                             <div class="follower-item">
-                                <a href="#">
+                                <a href="profile.html?id=${followerData.id}">
                                     <img src="${followerData.image || 'images/profile-pic.png'}" alt="${followerData.username}">
                                     <div>
                                         <h4>${followerData.username}</h4>

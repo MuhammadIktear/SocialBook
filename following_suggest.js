@@ -37,11 +37,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     return `
                         <div class="friend-item suggested" data-user-id="${user.id}">
                             <div class="friend-name">
+                                <a href="profile.html?id=${user.id}">
                                 <img src="${user.image || 'images/member-placeholder.png'}" alt="${user.username}">
+                                </a>
+                                
                                 <div class="friend-info">
+                                    <a href="profile.html?id=${user.id}">
                                     <h3>${user.username}</h3>
                                     <small>${user.first_name} ${user.last_name}</small>
+                                    </a>
                                 </div>
+                                
                             </div>
                             <div class="friend-actions">
                                 <button class="follow-button follow" onclick="follow(${user.id})" style="${isFollowing ? 'display: none;' : 'display: inline-block;'}">Follow</button>

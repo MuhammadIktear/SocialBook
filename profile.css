@@ -8,6 +8,9 @@
     --nav-color: #000;
     --bg-color:#000;    
 }
+a{
+    text-decoration: none;
+}
 
 .container{
     display: flex;
@@ -118,7 +121,7 @@ small{
     color: #626262;
 }
 .edit_profile{
-    background: #fdfdfd;
+    background-color: var(--body-color);
     padding: 30px;
     margin: 20px 0;
     border-radius: 10PX;
@@ -138,7 +141,7 @@ small{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #fff;
+    background-color: var(--body-color);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 90%;
@@ -226,6 +229,7 @@ margin-bottom: 5px;
 .alert i {
     cursor: pointer;
 }
+
 @media (max-width: 1024px) {
     .container {
         flex-direction: column;
@@ -289,3 +293,4 @@ margin-bottom: 5px;
         padding: 15px;
     }
 }
+

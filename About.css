@@ -3,10 +3,24 @@
     padding: 0;
     box-sizing: border-box;
 }
+:root{
+    --body-color:#efefef;
+    --nav-color: #003780;
+    --bg-color:#fff;
+}
+.dark-theme{
+    --body-color:#0a0a0a;
+    --nav-color: #000;
+    --bg-color:#000;    
+}
+
+body{
+    background: var(--body-color);
+}
 .about{
     background: url(image2.jpg) no-repeat left;
     background-size: 65%;
-    background-color: #fdfdfd;
+    background-color: var(--body-color);
     overflow: hidden;
     padding: 100px 0;
 }
@@ -15,7 +29,7 @@
     width: 55%;
     height: 700px;
     float: right;
-    background-color: #fdfdfd;
+    background-color: var(--body-color);
     padding: 80px;
     box-shadow: 10px 10px 8px rgba(0,0,0,0.3);
 }
