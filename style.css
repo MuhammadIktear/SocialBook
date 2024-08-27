@@ -496,6 +496,15 @@ font-size: 17.5px;
     font-size: 16px;
     font-weight: 600;
 }
+.button_suggest:hover{
+    background: none;
+}
+.make-flex{
+    display: flex;
+}
+.make-flex b{
+    margin-top: -15px;
+}
 @media (max-width: 1024px) {
     .container {
         flex-direction: column;

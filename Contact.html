@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,14 +10,23 @@
     <link rel="stylesheet" type="text/css" href="Contact.css">
     <script src="https://kit.fontawesome.com/1aa83cb145.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
     <nav>
         <div class="nav-left">
-            <a style="text-decoration: none;" href="index.html"><h1 class="phibook"><b class="P">P</b>hibook</h1></a>
-            <ul>                
-                <a href="index.html"><li><img src="images/home.png" alt="Home"></li></a>                
-                <a href="About.html"><li><img src="images/info.png"></li></a>
-                <a href="Contact.html"><li><img src="images/contact-mail.png"></li></a>
+            <a style="text-decoration: none;" href="index.html">
+                <h1 class="phibook"><b class="P">P</b>hibook</h1>
+            </a>
+            <ul>
+                <a href="index.html">
+                    <li><img src="images/home.png" alt="Home"></li>
+                </a>
+                <a href="About.html">
+                    <li><img src="images/info.png"></li>
+                </a>
+                <a href="Contact.html">
+                    <li><img src="images/contact-mail.png"></li>
+                </a>
             </ul>
         </div>
     </nav>
@@ -28,46 +38,43 @@
         <div class="inner-section">
             <h1 class="h1">Contact Us</h1>
             <div class="alert" id="alert-container">
-                <span id="alert-message">Send Message Successfully</span>
-                <i class="fa-solid fa-x" id="close-alert"></i>                        
             </div>
             <p class="text">
-                <div class="contact_sec">
-                    <div class="message">
-                        <h3>Send us a message</h3>
-                        <form>
-                            <div class="set_icon_input">
-                                <i class="fa-solid fa-user"></i><input type="text" placeholder="Your Name">
-                            </div>                            
-                            <div class="set_icon_input">
-                                <i class="fa-solid fa-envelope"></i><input type="text" placeholder="Your Email">
-                            </div>
-                            <div class="set_icon_input">
-                                <i class="fa-solid fa-message"></i><textarea rows="3" type="text" placeholder="Your Message"></textarea>
-                            </div>
-                            
-
-                            <button>Send Message</button>
-                        </form>
+            <div class="contact_sec">
+                <div class="message">
+                    <h3>Send us a message</h3>
+                    <form id="contact-form">
+                        <div class="set_icon_input">
+                            <i class="fa-solid fa-user"></i><input type="text" id="contact-name" placeholder="Your Name">
+                        </div>
+                        <div class="set_icon_input">
+                            <i class="fa-solid fa-envelope"></i><input type="email" id="contact-email" placeholder="Your Email">
+                        </div>
+                        <div class="set_icon_input">
+                            <i class="fa-solid fa-message"></i><textarea rows="3" id="contact-message" placeholder="Your Message"></textarea>
+                        </div>
+                        <button type="submit">Send Message</button>
+                    </form>
+                </div>
+                <div class="Contact">
+                    <h3 class="contact_h3">Contact Information</h3>
+                    <div class="set_icon">
+                        <i class="fa-solid fa-phone"></i>
+                        <p>+1 234 567 89</p>
                     </div>
-                    <div class="Contact">
-                        <h3 class="contact_h3">Contact Information</h3>
-                        <div class="set_icon">
-                            <i class="fa-solid fa-phone"></i>
-                            <p>+1 234 567 89</p>
-                        </div>
-                        <div class="set_icon">
-                            <i class="fa-solid fa-envelope"></i><p>phibook@gmail.com</p>
-                        </div>
-                        <div class="set_icon">
-                            <i class="fa-solid fa-location-dot"></i><p>le-meridien , Dhaka</p>
-                        </div>
+                    <div class="set_icon">
+                        <i class="fa-solid fa-envelope"></i>
+                        <p>phibook@gmail.com</p>
+                    </div>
+                    <div class="set_icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <p>Le-Meridien, Dhaka</p>
                     </div>
                 </div>
+            </div>
             </p>
         </div>
     </div>
-
 
     <footer class="footer-distributed">
 
@@ -75,10 +82,8 @@
             <h3>P<span>hibook</span></h3>
 
             <p class="footer-links">
-                <a href="#">Home</a>
-                |
-                <a href="#">About</a>
-                |
+                <a href="#">Home</a> |
+                <a href="#">About</a> |
                 <a href="#">Contact</a>
             </p>
 
@@ -88,7 +93,7 @@
         <div class="footer-center">
             <div>
                 <i class="fa fa-map-marker"></i>
-                <p><span>Le-Meridian</span>
+                <p><span>Le-Meridien</span>
                     Dhaka</p>
             </div>
 
@@ -104,10 +109,85 @@
         <div class="footer-right">
             <p class="footer-company-about">
                 <span>Career Objective</span>
-                    To leverage my expertise in social media management and digital marketing to drive engagement and foster community growth on <strong>Phibook</strong>, a dynamic social media platform. I aim to contribute to its success by creating compelling content, developing innovative strategies, and ensuring a seamless user experience that promotes meaningful connections and interaction among users.
+                To leverage my expertise in social media management and digital marketing to drive engagement and foster
+                community growth on <strong>Phibook</strong>, a dynamic social media platform. I aim to contribute to its
+                success by creating compelling content, developing innovative strategies, and ensuring a seamless user
+                experience that promotes meaningful connections and interaction among users.
             </p>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('contact-form');
+            const alertContainer = document.getElementById('alert-container');
+        
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+        
+                const userId = localStorage.getItem("user_id");
+                const authToken = localStorage.getItem('token');
+        
+                if (!userId || !authToken) {
+                    showAlert('warning', 'Please log in or register to send a message.');
+                    return;
+                }
+        
+                const name = document.getElementById('contact-name').value;
+                const email = document.getElementById('contact-email').value;
+                const message = document.getElementById('contact-message').value;
+        
+                const data = {
+                    user: userId,
+                    name: name,
+                    email: email,
+                    message: message
+                };
+        
+                try {
+                    const response = await fetch('http://127.0.0.1:8000/contact/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Token ${authToken}`
+                        },
+                        body: JSON.stringify(data)
+                    });
+        
+                    if (response.ok) {
+                        showAlert('success', 'Message sent successfully.');
+                        form.reset();
+                    } else if (response.status === 404) {
+                        showAlert('danger', 'User not found.');
+                    } else {
+                        const error = await response.json();
+                        showAlert('danger', 'Error sending message: ' + (error.error || 'An error occurred.'));
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    showAlert('danger', 'An error occurred while sending the message.');
+                }
+            });
+        
+            function showAlert(type, message) {
+                const alertHTML = `
+                    <div class="alert alert-${type}">
+                        <span>${message}</span>
+                        <button type="button" class="close-alert" aria-label="Close">&times;</button>
+                    </div>
+                `;
+                alertContainer.innerHTML = alertHTML;
+        
+                const closeBtn = document.querySelector('.close-alert');
+                closeBtn.addEventListener('click', () => {
+                    alertContainer.innerHTML = ''; 
+                });
+            }
+        });
+        
+    </script>
+
     <script src="script.js"></script>
 </body>
+
 </html>
