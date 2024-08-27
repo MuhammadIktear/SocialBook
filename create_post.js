@@ -97,12 +97,9 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <img src="${userProfiles[post.created_by]?.image || 'images/profile-pic.png'}" alt="Profile Image">
                             </a>
                             <div>
-                            <div class="make-flex">
                                 <a href="profile.html?id=${post.created_by}">
-                                    <p>${userProfiles[post.created_by]?.username || 'Unknown User'}</p>
+                                    <p>${userProfiles[post.created_by]?.username || 'Unknown User'}${showSuggestion ? `<b class="b_suggest"><button class="button_suggest" >View profile</button></b>` : ''}</p>
                                 </a>
-                                ${showSuggestion ? `<b class="b_suggest"><button class="button_suggest" onclick="followUser(${post.created_by})">Follow</button></b>` : ''}
-                            </div>
                                 <span>${new Date(post.created_at).toLocaleString()}</span>
                             </div>
                         </div>
