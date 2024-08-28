@@ -25,12 +25,12 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(data => {
         post_input_container.innerHTML=`
-<a id="activityLink" onclick="showToast('activity')"  href="#"><textarea id="textInput" rows="3" placeholder="What's on your mind, ${data.last_name}?"></textarea></a>
-<div class="add-post-links">
-    <a id="videoLink" onclick="showToast('video')" href="#"><img src="images/video.png" alt="Video Icon">Video</a>
-    <a id="photoLink" onclick="showToast('photo')" href="#"><img src="images/photo.png" alt="Photo Icon">Photo</a>
-    <a id="activityLink" onclick="showToast('activity')" href="#"><img src="images/feeling.png" alt="Activity Icon">Activity</a>
-</div>
+            <a id="activityLink" onclick="showToast('activity')"  href="#"><textarea id="textInput" rows="3" placeholder="What's on your mind, ${data.last_name}?"></textarea></a>
+            <div class="add-post-links">
+                <a id="videoLink" onclick="showToast('video')" href="#"><img src="images/video.png" alt="Video Icon">Video</a>
+                <a id="photoLink" onclick="showToast('photo')" href="#"><img src="images/photo.png" alt="Photo Icon">Photo</a>
+                <a id="activityLink" onclick="showToast('activity')" href="#"><img src="images/feeling.png" alt="Activity Icon">Activity</a>
+            </div>
         `
 
         user_profile.innerHTML=`
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <img src="${data.image || 'images/profile-pic.png'}" alt="">
                 <div>
                     <p>${data.first_name} ${data.last_name}</p>
-                     <a href="profile.html">See your profile</a>
+                     <a href="profile.html?id=${data.id}">See your profile</a>
             </div>
         `
         const profileHtml = `
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
             Promise.all(followerPromises).then(followerHtmlArray => {
                 followersContainer.innerHTML = followerHtmlArray.join('');
                 seeAllButton.style.display = 'inline'; 
-                seeAllButton.href = 'followers.html';
+                seeAllButton.href = `followers.html?id=${userId}`;
             });
         } else {
             followersContainer.innerHTML = '<p>No followers found.</p>';

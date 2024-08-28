@@ -218,7 +218,7 @@ margin-bottom: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 10px;
     background: #dfd8d8;
     border-radius: 10px;
@@ -228,6 +228,18 @@ margin-bottom: 5px;
 
 .alert i {
     cursor: pointer;
+}
+.follow-button_{
+    background:#e6e6e6;
+    color: #6094d8;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 8px;
+    margin-left: -10px;
+}
+.follow-button_:hover{
+    background:#6094d8;
+    color: #e6e6e6;
 }
 
 @media (max-width: 1024px) {

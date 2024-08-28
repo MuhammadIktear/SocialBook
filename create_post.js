@@ -132,7 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
 
                             <div onclick="toggleComments(event, this)"><img src="images/comments.png">${post.comments.length}</div>
-                            <div><img src="images/share.png">0</div>
                         </div>
                     </div> 
                     <div class="all-comments" style="display: none;">

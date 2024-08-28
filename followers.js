@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const followingsApiUrl = 'http://127.0.0.1:8000/user/followings/';
     const followersApiUrl = 'http://127.0.0.1:8000/user/followers/';
     const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('user_id');
+    const user_id = localStorage.getItem('user_id');
+    const userId = new URLSearchParams(window.location.search).get("id");
 
     // Fetch user profiles
     fetch(userProfilesApiUrl, {
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let followersList = users.filter(user => 
             user.id !== currentUser.id && followerIds.includes(user.id)
         );
-
+        const showActions = userId===user_id;
         function renderFollowers(filteredFollowers) {
             if (filteredFollowers.length > 0) {
                 const followersHtml = filteredFollowers.map(user => {
@@ -46,9 +47,11 @@ document.addEventListener('DOMContentLoaded', function() {
                                     </a>
                                 </div>
                             </div>
+                            ${showActions ? `
                             <div class="friend-actions">
                                 <button class="remove-button" onclick="removeFollower(${user.id})">Remove</button>
                             </div>
+                            ` : ''}
                         </div>
                     `;
                 }).join('');

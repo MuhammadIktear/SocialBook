@@ -38,15 +38,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 return `
                     <div class="online-list">
                         <div class="suggested" data-user-id="${user.id}">
-                        <a href="profile.html?id=${user.id}">
-                            <div class="online">
-                                <img src="${user.image || 'images/member-1.png'}" alt="${user.username}">
-                            </div>                        
-                        </a>
+                            <a href="profile.html?id=${user.id}">
+                                <div class="online">
+                                    <img src="${user.image || 'images/member-1.png'}" alt="${user.username}">
+                                </div>                        
+                            </a>
                             <div class="suggestions suggestions_another">
                                 <a href="profile.html?id=${user.id}">
-                                <p>${user.first_name} ${user.last_name}</p>                                
-                                <small class="small_suggest">Suggested for you</small>
+                                    <p>${user.first_name} ${user.last_name}</p>                                
+                                    <small class="small_suggest">Suggested for you</small>
                                 </a>
                             </div>
                         </div>
@@ -98,14 +98,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (!followerResponse.ok) {
                 throw new Error('Failed to add follower');
-            }            
+            }
 
-            const newFollowing = await followResponse.json();
-
-            document.querySelector(`.suggested[data-user-id="${followingUserId}"]`)
-                .nextElementSibling.innerHTML = `
-                    <button class="follow-button" onclick="unfollow(${followingUserId})">Unfollow</button>
-                `;
+            // Update the button text and onclick function
+            const button = document.querySelector(`.suggested[data-user-id="${followingUserId}"] + div .follow-button`);
+            if (button) {
+                button.textContent = 'Unfollow';
+                button.setAttribute('onclick', `unfollow(${followingUserId})`);
+            }
 
         } catch (error) {
             console.error('Error following user:', error);
@@ -136,12 +136,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (!unfollowerResponse.ok) {
                 throw new Error('Failed to remove follower');
-            }            
+            }
 
-            document.querySelector(`.suggested[data-user-id="${followingUserId}"]`)
-                .nextElementSibling.innerHTML = `
-                    <button class="follow-button" onclick="follow(${followingUserId})">Follow</button>
-                `;
+            // Update the button text and onclick function
+            const button = document.querySelector(`.suggested[data-user-id="${followingUserId}"] + div .follow-button`);
+            if (button) {
+                button.textContent = 'Follow';
+                button.setAttribute('onclick', `follow(${followingUserId})`);
+            }
 
         } catch (error) {
             console.error('Error unfollowing user:', error);

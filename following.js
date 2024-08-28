@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const followingsApiUrl = 'http://127.0.0.1:8000/user/followings/';
     const followersApiUrl = 'http://127.0.0.1:8000/user/followers/';
     const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('user_id');
+    const user_id = localStorage.getItem('user_id');
+    const userId = new URLSearchParams(window.location.search).get("id");
 
     // Fetch user profiles
     fetch(userProfilesApiUrl, {
@@ -31,29 +32,32 @@ document.addEventListener('DOMContentLoaded', function() {
             user.id !== currentUser.id && followingIds.includes(user.id)
         );
 
-        function renderSuggestions(filteredSuggestions) {
+        function renderSuggestions(filteredSuggestions, fetchId) {
             if (filteredSuggestions.length > 0) {
                 const suggestionsHtml = filteredSuggestions.map(user => {
                     const isFollowing = followingIds.includes(user.id);
+                    const showActions = userId===user_id;
+        
                     return `
                         <div class="friend-item suggested" data-user-id="${user.id}">
                             <div class="friend-name">
                                 <a href="profile.html?id=${user.id}">
-                                <img src="${user.image || 'images/member-placeholder.png'}" alt="${user.username}">
+                                    <img src="${user.image || 'images/member-placeholder.png'}" alt="${user.username}">
                                 </a>
-
+        
                                 <div class="friend-info">
                                     <a href="profile.html?id=${user.id}">
-                                    <h3>${user.username}</h3>
-                                    <small>${user.first_name} ${user.last_name}</small>
+                                        <h3>${user.username}</h3>
+                                        <small>${user.first_name} ${user.last_name}</small>
                                     </a>
                                 </div>
-                                
                             </div>
+                            ${showActions ? `
                             <div class="friend-actions">
                                 <button class="follow-button follow" onclick="follow(${user.id})" style="${isFollowing ? 'display: none;' : 'display: inline-block;'}">Follow</button>
                                 <button class="follow-button unfollow" onclick="unfollow(${user.id})" style="${isFollowing ? 'display: inline-block;' : 'display: none;'}">Unfollow</button>
                             </div>
+                            ` : ''}
                         </div>
                     `;
                 }).join('');
@@ -62,7 +66,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 friendListGrid.innerHTML = '<p>No suggestions available.</p>';
             }
         }
-
         renderSuggestions(followingSuggestions);
 
         function searchSuggestions() {

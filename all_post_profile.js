@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const postsApiUrl = 'http://127.0.0.1:8000/posts/allpost/';
     const token = localStorage.getItem('token'); // Retrieve token from local storage
     const userId = localStorage.getItem('user_id'); // Retrieve user ID from local storage
+    const fetchId= new URLSearchParams(window.location.search).get("id");
 
     let userProfiles = {};
     let currentUser = '';
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 username: profile.username,
                 image: profile.image || 'images/profile-pic.png' // Default image if none provided
             };
-            if (profile.id == userId) {
+            if (profile.id == fetchId) {
                 currentUser = profile.username;
             }
         });
@@ -50,8 +51,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return response.json();
     })
     .then(data => {
-        if (Array.isArray(data.filter(post => post.created_by === parseInt(userId)))) {
-            data.filter(post => post.created_by === parseInt(userId)).forEach(post => {
+        if (Array.isArray(data.filter(post => post.created_by === parseInt(fetchId)))) {
+            data.filter(post => post.created_by === parseInt(fetchId)).forEach(post => {
                 const postElement = document.createElement('div');
                 postElement.classList.add('post-container');
 
@@ -98,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
 
                             <div onclick="toggleComments(event, this)"><img src="images/comments.png">${post.comments.length}</div>
-                            <div><img src="images/share.png">0</div>
                         </div>
                     </div> 
                         <div class="all-comments" style="display: none;">
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                                     <small>${comment.comment}</small>
                                                     <a/>
                                                 </div>
-                                                ${comment.user == userId ? `
+                                                ${comment.user == fetchId ? `
                                                 <div onclick="toggleCommentMenu(event, this)">
                                                     <a href="javascript:void(0);"><i class="fa-solid fa-ellipsis"></i></a>     
                                                     <div class="edit-comment-menu" style="display: none;">
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 postElement.innerHTML = postHtml;
                 postsContainer.appendChild(postElement);
-                const userHasLiked = post.likes.some(like => like.user == userId);
+                const userHasLiked = post.likes.some(like => like.user == fetchId);
                 const likedDiv = document.getElementById(`liked-${post.id}`);
                 const notLikedDiv = document.getElementById(`not-liked-${post.id}`);
 
