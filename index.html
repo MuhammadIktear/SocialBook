@@ -25,7 +25,6 @@
                 <input type="text" placeholder="Search">
             </div> -->
             <div class="nav-user-icon online" onclick="settingsMenuToggle()">
-                <img src="images/profile-pic.png">
             </div>
         </div>
         <!-- setting-menu -->
@@ -37,16 +36,13 @@
 
             <div class="settings-menu-inner">
                 <div class="user-profile">
-                    <img src="images/profile-pic.png" alt="">
                     <div>
-                        <p>Jhon Nibichon</p>
-                        <a href="profile.html">See your profile</a>
                     </div>
                 </div>
                 <hr>
                 <div class="settings-link">
-                    <img src="images/logout.png" class="settings-icon">
-                    <a href="#">Logout<img src="images/arrow.png" width="10px"></a>
+                    <img onclick="handleLogout();" src="images/logout.png" class="settings-icon">
+                    <a onclick="handleLogout();">Logout<img onclick="handleLogout();" src="images/arrow.png" width="10px"></a>
                 </div>
             </div>
         </div>
@@ -68,14 +64,8 @@
         <div class="main-sidebar">
             <div class="write-post-container">
                 <div class="user-profile user-profile-post">
-                    <img src="images/profile-pic.png" alt="">
-                    <div>
-                        <p>Jhon Nibichon</p>
-                    </div>
                 </div>
-                <div class="post-input-container">
-                    <textarea rows="3" placeholder="What's on you mind, Jhon?"></textarea>
-                
+                <div class="post-input-container">                
                     <div class="add-post-links">
                     </div>
                 </div>
@@ -149,7 +139,7 @@
         </div>
         <!-- right-sidebar -->
         <div class="right-sidebar">
-            <div class="sidebar-title">
+            <div class="sidebar-title" style="display: none;">
                 <h4>Latest Photos</h4>
             </div>
             <div class="images">
@@ -176,12 +166,13 @@
      <script src="like.js"></script>
      <script src="create_post.js"></script>
      <script src="about_profile.js"></script>
-     <script src="suggetions.js"></script>
+     <script src="suggest_profile.js"></script>
      <script src="images.js"></script>
      <script src="upload_file.js"></script>
      <script src="send_comment.js"></script>
      <script src="edit_comment.js"></script>
      <script src="delete_comment.js"></script>
      <script src="edit_delete_post.js"></script>
+     <script src="logout.js"></script>
 </body>
 </html>

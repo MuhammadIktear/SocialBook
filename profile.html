@@ -32,7 +32,6 @@
         </div>
         <div class="nav-right">
             <div class="nav-user-icon online" onclick="settingsMenuToggle()">
-                <img src="images/profile-pic.png">
             </div>
         </div>
         <!-- setting-menu -->
@@ -48,8 +47,8 @@
                 </div>
                 <hr>
                 <div class="settings-link">
-                    <img src="images/logout.png" class="settings-icon">
-                    <a href="#">Logout<img src="images/arrow.png" width="10px"></a>
+                    <img onclick="handleLogout();" src="images/logout.png" class="settings-icon">
+                    <a onclick="handleLogout();">Logout<img onclick="handleLogout();" src="images/arrow.png" width="10px"></a>
                 </div>
             </div>
         </div>
@@ -64,10 +63,6 @@
                 <h4>Latest Photos</h4>
             </div>
             <div class="images">
-                <img src="images/member-1.png">
-                <img src="images/member-2.png">
-                <img src="images/member-3.png">
-                <img src="images/member-4.png">
             </div>  
             <div class="sidebar-title">
                 <h4>Suggestions for you</h4>
@@ -128,11 +123,49 @@
                 </div>
                 <div class="button_right">
                     <button onclick="saveProfile()">Save</button>
+                    <button onclick="showChangePasswordToast()">Change password</button>
                 </div>
+                
+
             </div>
         </div>
     </div>
 </div>
+
+
+<!-- Toast -->
+<div id="pass_change_toast" style="display:none;">
+    <div class="edit_pass">
+        <div class="password_Info">
+            <h3>Change password</h3>
+            <button onclick="hideToastforChangePass()">x</button>
+        </div>
+        <hr>
+        <div class="pass_change_sec">
+            <div class="alert_for_pass_change" id="alert-container_for_pass_change" style="display: none;">
+                <span id="alert-message_for_pass_change"></span>
+                <i class="fa-solid fa-x" id="close-alert"></i>
+            </div>
+            <div>
+                <div class="icon-set">
+                    <i class="fa-solid fa-lock"></i>
+                    <input id="old-password" type="password" name="old_password" placeholder="Old password" required>
+                </div>
+                <div class="icon-set">
+                    <i class="fa-solid fa-lock"></i>
+                    <input id="new-password" type="password" name="new_password" placeholder="New Password" required>
+                </div>
+                <div class="icon-set">
+                    <i class="fa-solid fa-lock"></i>
+                    <input id="confirm-password" type="password" name="confirm_password" placeholder="Confirm password" required>
+                </div>
+                <button id="save-password-btn" type="button">Save new password</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <!-- Edit Toast -->
 <div id="overlay2" class="overlay2"></div>
@@ -180,7 +213,7 @@
     </div>
 
     <script src="all_post_profile.js"></script>
-     <script src="suggetions.js"></script>
+     <script src="suggest_profile.js"></script>
      <script src="following_suggest.js"></script>
      <script src="profile.js"></script>
      <script src="script.js"></script>
@@ -192,5 +225,7 @@
      <script src="edit_delete_post.js"></script>
      <script src="like.js"></script>
      <script src="edit_profile.js"></script>
+     <script src="set_pass_with_old.js"></script>
+     <script src="logout.js"></script>
 </body>
 </html>

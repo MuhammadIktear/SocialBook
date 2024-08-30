@@ -1,65 +1,75 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const userId = localStorage.getItem("user_id"); // Assuming user ID is stored in local storage
+    const toast = document.getElementById('pass_change_toast');
+    const alertContainer = document.getElementById('alert-container_for_pass_change');
+    const alertMessage = document.getElementById('alert-message_for_pass_change');
+    const savePasswordBtn = document.getElementById('save-password-btn');
 
-    if (!userId) {
-        alert("User not logged in.");
-        window.location.href = "login.html";
-        return;
-    }
+    if (savePasswordBtn) {
+        savePasswordBtn.addEventListener("click", function () {
+            const oldPassword = document.getElementById("old-password").value;
+            const newPassword = document.getElementById("new-password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
 
-    const form = document.getElementById("login-form");
-    const alertContainer = document.getElementById("alert-container");
-    const alertMessage = document.getElementById("alert-message");
-
-    form.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const oldPassword = form.elements[0].value;
-        const newPassword = form.elements[1].value;
-        const confirmPassword = form.elements[2].value;
-
-        if (!validatePassword(newPassword)) {
-            showAlert("Password must contain at least 1 letter, 1 number, and 1 special character.");
-            return;
-        }
-
-        if (newPassword !== confirmPassword) {
-            showAlert("New password and confirm password do not match.");
-            return;
-        }
-
-        fetch(`http://127.0.0.1:8000/user/change-password/`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                user: userId,
-                old_password: oldPassword,
-                new_password: newPassword
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.detail) {
-                alert(data.detail);
-                window.location.href = "login.html";
-            } else {
-                showAlert(data.error || "An error occurred.");
+            if (newPassword !== confirmPassword) {
+                showAlert("New password and confirm password do not match.");
+                return;
             }
-        })
-        .catch(error => {
-            showAlert("An error occurred. Please try again.");
-        });
-    });
 
-    function validatePassword(password) {
-        const regex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/;
-        return regex.test(password);
+            if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(newPassword)) {
+                showAlert("Password must contain at least one letter, one number, and one special character, and be at least 8 characters long.");
+                return;
+            }
+
+            const userId = localStorage.getItem("user_id");
+            if (!userId) {
+                showAlert("User not logged in.");
+                return;
+            }
+
+            fetch(`http://127.0.0.1:8000/user/change-password/`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    user: userId,
+                    old_password: oldPassword,
+                    new_password: newPassword
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.detail) {
+                    showAlert(data.detail);
+                    setTimeout(() => {
+                        window.location.href = "login.html";
+                    }, 10000);
+                } else {
+                    showAlert(data.error || "An error occurred.");
+                }
+            })
+            .catch(error => {
+                showAlert("An error occurred. Please try again.");
+            });
+        });
     }
 
     function showAlert(message) {
-        alertMessage.textContent = message;
-        alertContainer.style.display = "block";
+        if (alertMessage && alertContainer) {
+            alertMessage.textContent = message;
+            alertContainer.style.display = "block";
+        }
     }
+
+    window.showChangePasswordToast = function() {
+        if (toast) {
+            toast.style.display = 'block';
+        }
+    };
+
+    window.hideToastforChangePass = function() {
+        if (toast) {
+            toast.style.display = 'none';
+        }
+    };
 });

@@ -3,6 +3,13 @@ var editmenu = document.querySelector(".edit-menu");
 var darkBtn = document.getElementById("dark-btn");
 var message = document.querySelector(".all-comments")
 var adSection = document.querySelector(".Advertisements_sec");
+var user_id = localStorage.getItem("user_id");
+var token = localStorage.getItem("token");
+
+if (!user_id || !token) {
+    window.location.href = "login.html";
+}
+
 
 function Comments() {
     if (message.style.display === "block") {

@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const imagesContainer = document.querySelector('.images');
+    const sidebar_title = document.querySelector('.sidebar-title');
+    
     const postsApiUrl = 'http://127.0.0.1:8000/posts/allpost/';
     const userId = localStorage.getItem('user_id');  
     const token = localStorage.getItem('token'); 
@@ -22,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let count = 0;
 
         if (Array.isArray(data)) {
+            sidebar_title.style.display = 'block';
             data.forEach(post => {
                 if (count < 6 && post.created_by ===  parseInt(userId) && post.image) {
                     const imageUrl = post.image || 'images/default-image.png';

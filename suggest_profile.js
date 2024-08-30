@@ -7,20 +7,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('user_id');
 
-    fetch(userProfilesApiUrl, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Token ${token}`,
-            'Content-Type': 'application/json'
+    async function fetchUserProfiles() {
+        try {
+            const response = await fetch(userProfilesApiUrl, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            
+            return response.json();
+        } catch (error) {
+            console.error('Error fetching user profiles:', error);
         }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(users => {
+    }
+
+    function renderSuggestions(users) {
         const currentUser = users.find(user => user.id == userId);
         const followingIds = currentUser.following.map(follow => follow.following);
 
@@ -51,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         </div>
                         <div>
-                            <button class="follow-button" onclick="${isFollowing ? `unfollow(${user.id})` : `follow(${user.id})`}">
+                            <button class="follow-button" data-user-id="${user.id}" data-following="${isFollowing}">
                                 ${isFollowing ? 'Unfollow' : 'Follow'}
                             </button>
                         </div>
@@ -61,12 +68,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
             suggestionsContainer.innerHTML = suggestionsHtml;
         }
-    })
-    .catch(error => {
-        console.error('Error fetching user profiles:', error);
-    });
+    }
 
-    window.follow = async function(followingUserId) {
+    function handleFollowUnfollowButtonClick(event) {
+        if (event.target.classList.contains('follow-button')) {
+            const button = event.target;
+            const followingUserId = button.getAttribute('data-user-id');
+            const isFollowing = button.getAttribute('data-following') === 'true';
+
+            if (isFollowing) {
+                unfollow(followingUserId, button);
+            } else {
+                follow(followingUserId, button);
+            }
+        }
+    }
+
+    async function follow(followingUserId, button) {
         try {
             const followResponse = await fetch(followingsApiUrl, {
                 method: 'POST',
@@ -100,19 +118,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error('Failed to add follower');
             }
 
-            // Update the button text and onclick function
-            const button = document.querySelector(`.suggested[data-user-id="${followingUserId}"] + div .follow-button`);
-            if (button) {
-                button.textContent = 'Unfollow';
-                button.setAttribute('onclick', `unfollow(${followingUserId})`);
-            }
-
+            // Update the button text and data-following attribute
+            button.textContent = 'Unfollow';
+            button.setAttribute('data-following', 'true');
         } catch (error) {
             console.error('Error following user:', error);
         }
-    };
+    }
 
-    window.unfollow = async function(followingUserId) {
+    async function unfollow(followingUserId, button) {
         try {
             const unfollowResponse = await fetch(`${followingsApiUrl}?main_user=${userId}&following=${followingUserId}`, {
                 method: 'DELETE',
@@ -138,15 +152,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error('Failed to remove follower');
             }
 
-            // Update the button text and onclick function
-            const button = document.querySelector(`.suggested[data-user-id="${followingUserId}"] + div .follow-button`);
-            if (button) {
-                button.textContent = 'Follow';
-                button.setAttribute('onclick', `follow(${followingUserId})`);
-            }
-
+            // Update the button text and data-following attribute
+            button.textContent = 'Follow';
+            button.setAttribute('data-following', 'false');
         } catch (error) {
             console.error('Error unfollowing user:', error);
         }
-    };
+    }
+
+    // Initialize
+    (async function init() {
+        const users = await fetchUserProfiles();
+        if (users) {
+            renderSuggestions(users);
+        }
+    })();
+
+    // Attach event listener for follow/unfollow button clicks
+    suggestionsContainer.addEventListener('click', handleFollowUnfollowButtonClick);
 });

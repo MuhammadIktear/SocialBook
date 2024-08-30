@@ -133,6 +133,7 @@ small{
 .edit_profile button{
     font-weight: 600;
     margin-left: 5px;
+    border: none;
 
 }
 #update_profile_toast {
@@ -205,6 +206,7 @@ margin-bottom: 5px;
     background: #e9e6e6;
     border-radius: 15px;
     display: table;
+    color: #626262;
 }
 .bio textarea ,.about textarea{
     padding: 15px 10px;
@@ -213,6 +215,7 @@ margin-bottom: 5px;
     background: #e9e6e6;
     border-radius: 15px;
     font-size: 14px;
+    color: #626262;
 }
 .alert {
     display: flex;
@@ -240,6 +243,108 @@ margin-bottom: 5px;
 .follow-button_:hover{
     background:#6094d8;
     color: #e6e6e6;
+}
+
+
+#pass_change_toast {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--body-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 600px;
+    z-index: 1001;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.password_Info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.password_Info h3 {
+    color: #626262;
+    font-size: 20px;
+}
+
+.password_Info button {
+    background: none;
+    color: #626262;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.pass_change_sec {
+    margin-top: 10px;
+}
+
+.alert_for_pass_change {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding: 10px;
+    background: #dfd8d8;
+    border-radius: 10px;
+    color: #45494C;
+    gap: 10px;
+}
+
+.alert_for_pass_change i {
+    cursor: pointer;
+}
+
+.icon-set {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.icon-set i {
+    margin-right: 10px;
+}
+
+.icon-set input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    background: #e9e6e6;
+    margin-bottom: 7px;
+    color: #626262;
+}
+
+.update_image {
+    margin-top: 10px;
+    border-radius: 20px;
+    padding: 10px;
+    background: #e9e6e6;
+    display: flex;
+    align-items: center;
+}
+
+.profile_image img {
+    max-width: 100px;
+    border-radius: 50%;
+    padding: 5px;
+}
+#save-password-btn{
+    font-weight: 600;
+    float: left;
+    margin-top: 20px;
+    border: none;
 }
 
 @media (max-width: 1024px) {

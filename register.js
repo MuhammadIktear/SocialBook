@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                showAlert(`Login failed: ${errorData.detail || response.statusText}`);
+                showAlert(`Password doesn't match. Please try again.`);
                 return;
             }
 

@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         submitButton.disabled = true;
-        submitButton.textContent = "Sending...";
+        submitButton.textContent = "Sending...";       
 
         fetch(`http://127.0.0.1:8000/user/reset-password-confirm/?uid=${uid}&token=${token}`, {
             method: 'PUT',

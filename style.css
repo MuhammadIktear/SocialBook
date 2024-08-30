@@ -443,12 +443,16 @@ font-size: 17.5px;
     border-radius: 50%;
 }
 .settings-link a{
+    cursor: pointer;
     display: flex;
     flex: 1;
     align-items: center;
     justify-content: space-between;
     text-decoration: none;
     color: #626262;
+}
+.settings-link img{
+    cursor: pointer;
 }
 #dark-btn{
     position: absolute;

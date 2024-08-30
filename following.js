@@ -8,7 +8,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const token = localStorage.getItem('token');
     const user_id = localStorage.getItem('user_id');
     const userId = new URLSearchParams(window.location.search).get("id");
-
+    
+    if (!user_id || !token) {
+        window.location.href = "login.html";
+    }    
     // Fetch user profiles
     fetch(userProfilesApiUrl, {
         method: 'GET',
