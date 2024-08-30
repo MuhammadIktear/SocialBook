@@ -123,29 +123,33 @@
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('contact-form');
             const alertContainer = document.getElementById('alert-container');
-        
+    
             form.addEventListener('submit', async (event) => {
                 event.preventDefault();
-        
+    
                 const userId = localStorage.getItem("user_id");
                 const authToken = localStorage.getItem('token');
-        
+    
                 if (!userId || !authToken) {
                     showAlert('warning', 'Please log in or register to send a message.');
                     return;
                 }
-        
+    
                 const name = document.getElementById('contact-name').value;
                 const email = document.getElementById('contact-email').value;
                 const message = document.getElementById('contact-message').value;
-        
+    
                 const data = {
                     user: userId,
                     name: name,
                     email: email,
                     message: message
                 };
-        
+    
+                const submitButton = form.querySelector("button[type='submit']");
+                submitButton.disabled = true;
+                submitButton.textContent = "Sending...";
+    
                 try {
                     const response = await fetch('http://127.0.0.1:8000/contact/', {
                         method: 'POST',
@@ -155,7 +159,7 @@
                         },
                         body: JSON.stringify(data)
                     });
-        
+    
                     if (response.ok) {
                         showAlert('success', 'Message sent successfully.');
                         form.reset();
@@ -168,9 +172,12 @@
                 } catch (error) {
                     console.error('Error:', error);
                     showAlert('danger', 'An error occurred while sending the message.');
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = "Send Message";
                 }
             });
-        
+    
             function showAlert(type, message) {
                 const alertHTML = `
                     <div class="alert alert-${type}">
@@ -179,14 +186,13 @@
                     </div>
                 `;
                 alertContainer.innerHTML = alertHTML;
-        
+    
                 const closeBtn = document.querySelector('.close-alert');
                 closeBtn.addEventListener('click', () => {
                     alertContainer.innerHTML = ''; 
                 });
             }
         });
-        
     </script>
 
     <script src="script.js"></script>

@@ -20,8 +20,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const getValue = (id) => document.getElementById(id)?.value.trim();
 
-    async function handleRegistration(event){
+    async function handleRegistration(event) {
         event.preventDefault();
+        
+        const registrationForm = event.target;
+        const submitButton = registrationForm.querySelector("button[type='submit']");
+        
+        submitButton.disabled = true;
+        submitButton.textContent = "Processing...";
+
         const username = getValue("username");
         const first_name = getValue("first-name");
         const last_name = getValue("last-name");
@@ -31,11 +38,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (password !== confirm_password) {
             showAlert("Password and confirm password do not match");
+            submitButton.disabled = false;
+            submitButton.textContent = "Register";
             return;
         }
 
         if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password)) {
             showAlert("Password must contain at least one letter, one number, and one special character, and be at least 8 characters long.");
+            submitButton.disabled = false;
+            submitButton.textContent = "Register";
             return;
         }
 
@@ -48,19 +59,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (!response.ok) {
                 showAlert("An error occurred during registration. Please ensure email ID and unique username. Please try again.");
+                submitButton.disabled = false;
+                submitButton.textContent = "Register";
                 return;
             }
 
             const data = await response.json();
             console.log(data);
-            showAlert("Check your email for confirmation");
+            showAlert("Check your email for confirmation.");
         } catch (error) {
             console.error("Registration error:", error);
             showAlert("An error occurred during registration. Please try again.");
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = "Register";
         }
-    };
+    }
 
-    async function handleLogin(event){
+    async function handleLogin(event) {
         event.preventDefault();
 
         const username = getValue("login-username");
@@ -98,7 +114,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.error("Login error:", error);
             showAlert("An error occurred during login. Please try again.");
         }
-    };
+    }
 
     const registrationForm = document.getElementById("signup-form");
     const loginForm = document.getElementById("login-form");
