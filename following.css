@@ -75,7 +75,7 @@ body{
 
 .friend-list-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
     gap: 16px;
     margin-top: 20px;
 }
@@ -133,13 +133,10 @@ body{
 /* Responsive Design */
 @media (max-width: 600px) {
     .friend-list-header {
-        flex-direction: column;
         align-items: flex-start;
     }
-
-    .friend-list-search {
-        width: 100%;
-        margin-top: 10px;
+    .friend-list{
+        width: 320px;
     }
 }
 a{

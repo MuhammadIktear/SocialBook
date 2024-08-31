@@ -70,4 +70,35 @@ nav{
         margin-bottom: 10px;
         width: 100%;
     }
+    nav{
+        display: flex;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        justify-content: space-between;
+        background: var(--nav-color);
+        padding: 7px 5%;
+    }
+    .logo{
+        width: 100px;
+        margin-right: 20px;
+    }
+    .P{
+        font-size: 30px;
+    }
+    .phibook{
+        font-size: 20px;
+    }
+    .nav-left ul li img{
+        width: 23px;
+        margin: 0 5px;
+        margin-top: 5px;
+        margin-left: -2px;
+    }
+    .nav-user-icon img{
+        width: 32px;
+        height: 32px;
+        object-fit: cover;
+    }
 }

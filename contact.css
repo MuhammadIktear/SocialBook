@@ -181,4 +181,7 @@ p,i,h3{
         padding: 5px;
         width: 160px;
     }
+    .contact_sec .contact{
+        display:none;
+    }
 }

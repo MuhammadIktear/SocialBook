@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="send-comments">
                             <textarea id="comment-text-${post.id}" rows="2" placeholder="Comment as ${currentUser}"></textarea>               
                             <div class="add-post-links">
-                                <a onclick="sendComment(${post.id})"><img src="images/send message.png">Send</a>
+                                <a class="send_btn" onclick="sendComment(${post.id})"><img src="images/send message.png">Send</a>
                             </div>
                         </div>  
                     </div>

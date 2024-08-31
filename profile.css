@@ -377,9 +377,6 @@ margin-bottom: 5px;
 }
 
 @media (max-width: 600px) {
-    .profile-user-settings{
-        min-width: 200px;
-    }
     nav {
         align-items: flex-start;
     }
@@ -407,6 +404,58 @@ margin-bottom: 5px;
 
     .post-container, .write-post-container {
         padding: 15px;
+    }
+    nav{
+        display: flex;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        justify-content: space-between;
+        background: var(--nav-color);
+        padding: 7px 5%;
+    }
+    .logo{
+        width: 100px;
+        margin-right: 20px;
+    }
+    .P{
+        font-size: 30px;
+    }
+    .phibook{
+        font-size: 20px;
+    }
+    .nav-left ul li img{
+        width: 23px;
+        margin: 0 5px;
+        margin-top: 5px;
+        margin-left: -2px;
+    }
+    .nav-user-icon img{
+        width: 32px;
+        height: 32px;
+        object-fit: cover;
+    }
+    .main-sidebar{
+        width: 320px;
+    }
+    .add-post-links a{
+        margin-left: -20px;
+    }
+    .add-post-links .send_btn{
+        margin-left: 10px;
+    }
+    .edit-comment-menu{
+        margin-left: -150px;
+    }
+    textarea[id^="edit-comment-text-"]{
+        min-width: 0;
+    }
+    .profile{
+        margin-left: -20px;
+    }
+    .profile img{
+        display: none;
     }
 }
 
