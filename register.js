@@ -30,14 +30,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         submitButton.textContent = "Processing...";
 
         const username = getValue("username");
-        const first_name = getValue("first-name");
-        const last_name = getValue("last-name");
+        const firstName = getValue("first-name");
+        const lastName = getValue("last-name");
         const email = getValue("email");
         const password = getValue("password");
-        const confirm_password = getValue("confirm-password");
+        const confirmPassword = getValue("confirm-password");
 
-        if (password !== confirm_password) {
-            showAlert("Password and confirm password do not match");
+        if (password !== confirmPassword) {
+            showAlert("Password and confirm password do not match.");
             submitButton.disabled = false;
             submitButton.textContent = "Register";
             return;
@@ -51,22 +51,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         try {
-            const response = await fetch("http://127.0.0.1:8000/user/register/", {
+            const response = await fetch("https://phibook-f17w.onrender.com/user/register/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, first_name, last_name, email, password, confirm_password }),
+                body: JSON.stringify({ username, first_name: firstName, last_name: lastName, email, password, confirm_password: confirmPassword }),
             });
 
             if (!response.ok) {
-                showAlert("An error occurred during registration. Please ensure email ID and unique username. Please try again.");
+                showAlert("Registration failed. Please ensure your email and username are unique, and try again.");
                 submitButton.disabled = false;
                 submitButton.textContent = "Register";
                 return;
             }
 
             const data = await response.json();
-            console.log(data);
             showAlert("Check your email for confirmation.");
+            registrationForm.reset();  // Clear the form fields
         } catch (error) {
             console.error("Registration error:", error);
             showAlert("An error occurred during registration. Please try again.");
@@ -81,14 +81,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const username = getValue("login-username");
         const password = getValue("login-password");
+        const loginForm = event.target;
+        const submitButton = loginForm.querySelector("button[type='submit']");
+        
+        submitButton.disabled = true;
+        submitButton.textContent = "Loading...";
 
         if (!username || !password) {
             showAlert("Username and password are required.");
+            submitButton.disabled = false;
+            submitButton.textContent = "Login";
             return;
         }
 
         try {
-            const response = await fetch("http://127.0.0.1:8000/user/login/", {
+            const response = await fetch("https://phibook-f17w.onrender.com/user/login/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password }),
@@ -96,23 +103,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                showAlert(`Password doesn't match. Please try again.`);
+                showAlert("Invalid login credentials. Please try again.");
+                submitButton.disabled = false;
+                submitButton.textContent = "Login";
                 return;
             }
 
             const data = await response.json();
-            console.log(data);
-
-            if (data.token && data.user_id) {
-                localStorage.setItem("token", data.token);
-                localStorage.setItem("user_id", data.user_id);
-                window.location.href = "index.html";
-            } else {
-                showAlert("Invalid login credentials.");
-            }
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user_id", data.user_id);
+            window.location.href = "index.html";
         } catch (error) {
             console.error("Login error:", error);
             showAlert("An error occurred during login. Please try again.");
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = "Login";
         }
     }
 

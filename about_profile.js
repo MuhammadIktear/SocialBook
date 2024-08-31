@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const followersContainer = document.querySelector('.followers');
     const user_profile = document.querySelector('.user-profile-post');
     const seeAllButton = document.querySelector('.see-all-btn');
-    const userProfilesApiUrl = 'http://127.0.0.1:8000/user/useraccounts/';
+    const userProfilesApiUrl = 'https://phibook-f17w.onrender.com/user/useraccounts/';
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('user_id');
     fetch(`${userProfilesApiUrl}${userId}/`, {

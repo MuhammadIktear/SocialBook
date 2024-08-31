@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const postsContainer = document.getElementById('posts-container');
-    const userProfilesApiUrl = 'http://127.0.0.1:8000/user/useraccounts/';
-    const postsApiUrl = 'http://127.0.0.1:8000/posts/allpost/';
+    const userProfilesApiUrl = 'https://phibook-f17w.onrender.com/user/useraccounts/';
+    const postsApiUrl = 'https://phibook-f17w.onrender.com/posts/allpost/';
     const token = localStorage.getItem('token'); // Retrieve token from local storage
     const userId = localStorage.getItem('user_id'); // Retrieve user ID from local storage
     const fetchId= new URLSearchParams(window.location.search).get("id");

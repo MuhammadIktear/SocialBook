@@ -1,5 +1,5 @@
 async function editComment(commentId) {
-    const userProfilesApiUrl = 'http://127.0.0.1:8000/user/useraccounts/';
+    const userProfilesApiUrl = 'https://phibook-f17w.onrender.com/user/useraccounts/';
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('user_id');
 
@@ -25,7 +25,7 @@ async function editComment(commentId) {
         const userProfiles = await userProfilesResponse.json();
 
         // Fetch the current comment data
-        const commentResponse = await fetch(`http://127.0.0.1:8000/posts/allcomment/?comment_id=${commentId}`, {
+        const commentResponse = await fetch(`https://phibook-f17w.onrender.com/posts/allcomment/?comment_id=${commentId}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Token ${token}`,
@@ -77,7 +77,7 @@ async function saveComment(commentId) {
         }
 
         // Update the comment
-        const updateResponse = await fetch(`http://127.0.0.1:8000/posts/allcomment/`, {
+        const updateResponse = await fetch(`https://phibook-f17w.onrender.com/posts/allcomment/`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Token ${token}`,

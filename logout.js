@@ -7,7 +7,7 @@ function handleLogout() {
       return;
     }
   
-    fetch('http://127.0.0.1:8000/user/logout/', {
+    fetch('https://phibook-f17w.onrender.com/user/logout/', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

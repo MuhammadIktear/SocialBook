@@ -381,7 +381,6 @@ margin-bottom: 5px;
         min-width: 200px;
     }
     nav {
-        flex-direction: column;
         align-items: flex-start;
     }
     .left-sidebar, .right-sidebar  {

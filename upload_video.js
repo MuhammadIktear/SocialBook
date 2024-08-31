@@ -58,7 +58,7 @@ document.getElementById('postButton').addEventListener('click', async function (
 
     // Send the post request to your backend
     try {
-        const postResponse = await fetch('http://127.0.0.1:8000/posts/', {
+        const postResponse = await fetch('https://phibook-f17w.onrender.com/posts/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

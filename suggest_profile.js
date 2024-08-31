@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     const suggestionsContainer = document.querySelector('.suggestions-list');
     const seeAllButton = document.querySelector('.see-all-suggestions');
-    const userProfilesApiUrl = 'http://127.0.0.1:8000/user/useraccounts/';
-    const followingsApiUrl = 'http://127.0.0.1:8000/user/followings/';
-    const followersApiUrl = 'http://127.0.0.1:8000/user/followers/';
+    const userProfilesApiUrl = 'https://phibook-f17w.onrender.com/user/useraccounts/';
+    const followingsApiUrl = 'https://phibook-f17w.onrender.com/user/followings/';
+    const followersApiUrl = 'https://phibook-f17w.onrender.com/user/followers/';
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('user_id');
 

@@ -119,7 +119,7 @@ async function postContent(event) {
     };
 
     // Send the post request to your backend
-    const postResponse = await fetch('http://127.0.0.1:8000/posts/allpost/', {
+    const postResponse = await fetch('https://phibook-f17w.onrender.com/posts/allpost/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

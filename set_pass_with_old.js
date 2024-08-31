@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            fetch(`http://127.0.0.1:8000/user/change-password/`, {
+            fetch(`https://phibook-f17w.onrender.com/user/change-password/`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"

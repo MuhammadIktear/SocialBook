@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const imagesContainer = document.querySelector('.images');
     const sidebar_title = document.querySelector('.sidebar-title');
     
-    const postsApiUrl = 'http://127.0.0.1:8000/posts/allpost/';
+    const postsApiUrl = 'https://phibook-f17w.onrender.com/posts/allpost/';
     const userId = localStorage.getItem('user_id');  
     const token = localStorage.getItem('token'); 
 

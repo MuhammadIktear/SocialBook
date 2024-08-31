@@ -4,7 +4,7 @@ async function toggleLike(postId) {
 
     try {
         // Fetch post details to check if user has liked the post
-        const postResponse = await fetch(`http://127.0.0.1:8000/posts/allpost/${postId}/`, {
+        const postResponse = await fetch(`https://phibook-f17w.onrender.com/posts/allpost/${postId}/`, {
             headers: {
                 'Authorization': `Token ${token}`
             }
@@ -19,7 +19,7 @@ async function toggleLike(postId) {
         const userHasLiked = postData.likes.some(like => like.user === parseInt(userId));
 
         // Prepare the like/unlike request
-        const likeResponse = await fetch(`http://127.0.0.1:8000/posts/${postId}/like/`, {
+        const likeResponse = await fetch(`https://phibook-f17w.onrender.com/posts/${postId}/like/`, {
             method: userHasLiked ? 'DELETE' : 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -8,7 +8,7 @@ async function deleteComment(commentId) {
 
     try {
         // Delete the comment
-        const deleteResponse = await fetch(`http://127.0.0.1:8000/posts/allcomment/?comment_id=${commentId}`, {
+        const deleteResponse = await fetch(`https://phibook-f17w.onrender.com/posts/allcomment/?comment_id=${commentId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Token ${token}`,

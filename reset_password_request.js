@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
         submitButton.disabled = true;
         submitButton.textContent = "Sending...";
 
-        fetch('http://127.0.0.1:8000/user/reset-password-request/', {
+        fetch('https://phibook-f17w.onrender.com/user/reset-password-request/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

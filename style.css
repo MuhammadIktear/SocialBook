@@ -537,7 +537,6 @@ font-size: 17.5px;
 
 @media (max-width: 600px) {
     nav {
-        flex-direction: column;
         align-items: flex-start;
     }
     .left-sidebar, .right-sidebar  {
