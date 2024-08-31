@@ -29,7 +29,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    color: white;
+    color: #ffffff;
     z-index: 2;
     text-shadow: 2px 2px 4px rgba(7, 7, 7, 0.7); 
 }
@@ -73,7 +73,7 @@ body {
 .right {
     width: 50%;
     height: 100%;
-    background: #f9f9f9;
+    background: #ffffff;
     right: 0;
     position: absolute;
 }
