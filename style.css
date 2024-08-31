@@ -733,4 +733,8 @@ button:hover {
     textarea[id^="edit-comment-text-"]{
         min-width: 0;
     }
+    .post-input-container textarea{
+        width: 290px;
+        margin-left: -50px;
+    }
 }
