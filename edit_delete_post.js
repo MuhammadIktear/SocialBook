@@ -227,7 +227,7 @@ async function confirmDelete() {
             alert('Post deleted successfully!');
             window.location.reload();
         } else {
-            alert('Failed to delete post. Please try again.');
+            alert('Failed to delete post. Text/caption is required. Please try again.');
         }
     } catch (error) {
         console.error('Error deleting post:', error);

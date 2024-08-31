@@ -153,6 +153,6 @@ async function postContent(event) {
         // Hide the toast after posting
         hideToast();
     } else {
-        alert('Failed to create post. Please try again.');
+        alert('Failed to create post. Text/caption is required. Please try again.');
     }
 }
