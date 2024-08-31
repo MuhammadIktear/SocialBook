@@ -213,3 +213,17 @@ input {
     border-radius: 2px;
     margin-right: 4px;
 }
+@media screen and (max-width:600px){
+    .content form input{
+        min-width: 250px;
+    }
+    #slideBox {
+        width: 100%;
+        padding: 20px;
+    }
+    .pass_btn_set{
+        display: flex;
+        min-width: 200px;
+    }
+
+}
