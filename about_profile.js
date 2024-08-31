@@ -34,10 +34,10 @@ document.addEventListener('DOMContentLoaded', function() {
         `
 
         user_profile.innerHTML=`
-                <img src="${data.image || 'images/profile-pic.png'}" alt="">
+                <a href="profile.html?id=${data.id}"><img src="${data.image || 'images/profile-pic.png'}" alt=""></a> 
                 <div>
-                    <p>${data.first_name} ${data.last_name}</p>
-                </div>        
+                    <a href="profile.html?id=${data.id}"><p>${data.first_name} ${data.last_name}</p></a>
+                </div>         
         `
 
         nav_profile_image.innerHTML=`
