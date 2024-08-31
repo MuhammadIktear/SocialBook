@@ -457,5 +457,17 @@ margin-bottom: 5px;
     .profile img{
         display: none;
     }
+    .profile h1{
+        font-size: 25px;
+    }
+    .profile button{
+        font-size: 15px;
+    }
+    .profile li span{
+        font-size: 17px;
+    }
+    .profile p{
+        font-size: 15px;
+    }
 }
 
