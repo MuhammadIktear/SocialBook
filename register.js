@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const data = await response.json();
             localStorage.setItem("token", data.token);
             localStorage.setItem("user_id", data.user_id);
-            window.location.href = "home.html";
+            window.location.href = "index.html";
         } catch (error) {
             console.error("Login error:", error);
             showAlert("An error occurred during login. Please try again.");
