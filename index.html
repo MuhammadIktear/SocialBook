@@ -3,176 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PhiBook</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="input_image.css">
-    <link rel="stylesheet" href="edit_delete_post.css">       
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css">
     <script src="https://kit.fontawesome.com/1aa83cb145.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <nav>
-        <div class="nav-left">
-            <a style="text-decoration: none;" href="index.html"><h1 class="phibook"><b class="P">P</b>hibook</h1></a>
-            <ul>                
-                <a href="index.html"><li><img src="images/home.png" alt="Home"></li></a>                
-                <a href="About.html"><li><img src="images/info.png"></li></a>
-                <a href="Contact.html"><li><img src="images/contact-mail.png"></li></a>
-            </ul>
-        </div>
-        <div class="nav-right">
-            <!-- <div class="search-box">
-                <img src="images/search.png">
-                <input type="text" placeholder="Search">
-            </div> -->
-            <div class="nav-user-icon online" onclick="settingsMenuToggle()">
+    <div id="back">
+        <div class="overlay"></div>
+        <div class="backLeft">
+            <div class="textOverlay">
+                <h1 class="phibook"><b class="P">P</b>hibook</h1>
+                <p>Connect with friends and the world around you on Phibook.</p>
             </div>
         </div>
-        <!-- setting-menu -->
-        <div class="settings-menu">
-
-            <div id="dark-btn">
-                <span></span>
-            </div>
-
-            <div class="settings-menu-inner">
-                <div class="user-profile">
-                    <div>
+    </div>
+    <div id="slideBox">
+        <div class="topLayer">
+            <div class="right">
+                <div class="content">
+                    <h2>Login</h2>
+                    <div class="alert" id="alert-container">
+                        <span id="alert-message"></span>
+                        <i class="fa-solid fa-x" id="close-alert"></i>                        
                     </div>
-                </div>
-                <hr>
-                <div class="settings-link">
-                    <img onclick="handleLogout();" src="images/logout.png" class="settings-icon">
-                    <a onclick="handleLogout();">Logout<img onclick="handleLogout();" src="images/arrow.png" width="10px"></a>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <div class="container">
-        <!-- left-sidebar -->
-        <div class="left-sidebar">
-            <div class="imp-links">
-            </div>
-            <div class="shortcut-links" style="display: none;">
-                <p>Your Latest Followers</p>
-                <div class="followers">
-                </div>
-                <a class="see-all-btn" style="display: block;">See All</a>
-            </div>            
-        </div>
-
-        <!-- main-content -->
-        <div class="main-sidebar">
-            <div class="write-post-container">
-                <div class="user-profile user-profile-post">
-                </div>
-                <div class="post-input-container">                
-                    <div class="add-post-links">
+                    <form id="login-form" method="post" action="/login">
+                        <div class="icon-set">
+                            <i class="fa-solid fa-user"></i>
+                            <input id="login-username" type="text" name="username" placeholder="Username" required>
+                        </div>
+                        <div class="icon-set">
+                            <i class="fa-solid fa-lock"></i>
+                            <input id="login-password" type="password" name="password" placeholder="Password" required>
+                        </div>
+                        <button type="submit">Login</button>
+                    </form>
+                    <div class="pass_btn_set">
+                    <button class="off" onclick="window.location.href='register.html'">Sign Up</button>
+                    <button class="off" onclick="window.location.href='reset_password_request.html'">Forget password</button>
                     </div>
                 </div>
             </div>
-
-    <!-- Toast -->
-    <div id="overlay" class="overlay"></div>
-    <div id="toast" class="toast">
-        <div class="toast-header">
-            <h4 id="toastTitle">Create Post</h4>
-            <button onclick="hideToast()">x</button>
-        </div>
-        <div class="toast-body">
-            <!-- Video elements -->
-            <input type="file" id="videoFile" accept="video/*" style="display:none;" onchange="previewVideo(event)">
-            <video id="videoPreview" controls style="display:none;"></video>
-    
-            <!-- Image elements -->
-            <input type="file" id="imageInput" accept="image/*" style="display:none;" onchange="previewImage(event)">
-            <img id="imagePreview" src="" alt="Image Preview" style="display:none;">
-    
-            <textarea id="caption" rows="3" placeholder="Write a caption..."></textarea>
-        </div>
-        <div class="toast-footer">
-            <button type="button" onclick="postContent(event)">Post</button>
         </div>
     </div>
-
-
-<!-- Edit Toast -->
-<div id="overlay2" class="overlay2"></div>
-<div id="edit-toast">
-    <div class="toast-header">
-        <h3 id="toastTitle">Edit Post</h3>
-        <button onclick="hideEditToast()">×</button>
-    </div>
-    <div class="toast-content">
-        <div class="set_">
-            <label for="edit-image"><img src="images/another_photo.png"></label>
-            <input type="file" id="edit-image" accept="image/*" onchange="previewEditImage(event)">
-        </div>
-        <div class="set_">
-            <label for="edit-video"><img src="images/another_video.png"></label>
-            <input type="file" id="edit-video" accept="video/*" onchange="previewEditVideo(event)">            
-        </div>
-        <img id="edit-image-preview" style="display:none; width:100%;" />
-        <video id="edit-video-preview" controls style="display:none; width:100%;"></video>
-        <textarea id="edit-caption" placeholder="Edit your post..."></textarea>
-        <div class="set_button">
-            <button onclick="updatePost()">Save Changes</button>
-            <button onclick="hideEditToast()">Cancel</button>
-        </div>
-
-    </div>
-</div>
-
-<!-- Delete Confirmation -->
-<div id="confirm-delete">
-    <button class="close" onclick="hideDeleteConfirm()">×</button>
-    <div class="confirmation-content">
-        <p>Are you sure you want to delete this post?</p>
-        <div class="set_button">
-            <button onclick="confirmDelete()">Yes, Delete</button>
-            <button onclick="hideDeleteConfirm()">Cancel</button>
-        </div>
-    </div>
-</div>
-
-            <div id="posts-container" class="posts-container">
-            </div>
-        </div>
-        <!-- right-sidebar -->
-        <div class="right-sidebar">
-            <div class="sidebar-title" style="display: none;">
-                <h4>Latest Photos</h4>
-            </div>
-            <div class="images">
-            </div>
-            <div class="Advertisements_sec" style="display: block;">
-                <div class="Advertisements">                
-                    <h4>Advertisements</h4>
-                    <a onclick="hideAd()">Close</a>
-                </div>
-                <img src="images/advertisement.png" class="sidebar-ads">  
-            </div>   
-            <div class="sidebar-title">
-                <h4>Suggestions for you</h4>
-                <a class="see-all-suggestions" style="display: none;" href="following_suggest.html">See All</a>
-            </div> 
-        <div class="suggestions-list">           
-        </div>
-    </div>
-</div>
-<script src="https://unpkg.com/cloudinary-video-player@latest/dist/cld-video-player.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/cloudinary-video-player@latest/dist/cld-video-player.min.css">
-    <!-- script  -->
-     <script src="script.js"></script>
-     <script src="like.js"></script>
-     <script src="create_post.js"></script>
-     <script src="about_profile.js"></script>
-     <script src="suggest_profile.js"></script>
-     <script src="images.js"></script>
-     <script src="upload_file.js"></script>
-     <script src="send_comment.js"></script>
-     <script src="edit_comment.js"></script>
-     <script src="delete_comment.js"></script>
-     <script src="edit_delete_post.js"></script>
-     <script src="logout.js"></script>
+    <script src="register.js"></script>
 </body>
 </html>
+
