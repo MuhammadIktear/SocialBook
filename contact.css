@@ -28,7 +28,7 @@ body{
 .inner-section{
     margin: -45px 0;
     width: 55%;
-    height: 700px;
+    height: 760px;
     float: right;
     background-color: var(--body-color);
     padding: 80px;
@@ -181,7 +181,7 @@ p,i,h3{
         padding: 5px;
         width: 160px;
     }
-    .contact_sec .contact{
-        display:none;
+    .contact_sec{
+        display: inline;
     }
 }

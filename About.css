@@ -27,10 +27,11 @@ body{
 .inner-section{
     margin: -45px 0;
     width: 55%;
-    height: 700px;
+    height: auto;
     float: right;
     background-color: var(--body-color);
     padding: 80px;
+    min-height: 650px;
     box-shadow: 10px 10px 8px rgba(0,0,0,0.3);
 }
 .inner-section h1{
