@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                                 </div>
                                                 ${comment.user == fetchId ? `
                                                 <div onclick="toggleCommentMenu(event, this)">
-                                                    <a href="javascript:void(0);"><i class="fa-solid fa-ellipsis"></i></a>     
+                                                    <a href="javascript:void(0);" style="display:none"><i class="fa-solid fa-ellipsis"></i></a>     
                                                     <div class="edit-comment-menu" style="display: none;">
                                                         <div class="edit-menu-inner">
                                                             <div class="edit-link">
