@@ -28,7 +28,7 @@ body{
 .inner-section{
     margin: -45px 0;
     width: 55%;
-    height: 760px;
+    height: 720px;
     float: right;
     background-color: var(--body-color);
     padding: 80px;
