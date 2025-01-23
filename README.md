@@ -7,3 +7,6 @@ and accessing support through the About and Contact pages.
 
 Live  :https://phibook.netlify.app/login.html
 
+
+you can sign up or log in with the default credentials:
+Username: Iktear500 | Password: iktear@123
