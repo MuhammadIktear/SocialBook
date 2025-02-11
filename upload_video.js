@@ -58,7 +58,7 @@ document.getElementById('postButton').addEventListener('click', async function (
 
     // Send the post request to your backend
     try {
-        const postResponse = await fetch('https://phibook-f17w.onrender.com/posts/', {
+        const postResponse = await fetch('https://social-media-phibook-deployment.vercel.app/posts/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

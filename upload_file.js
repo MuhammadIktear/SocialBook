@@ -119,7 +119,7 @@ async function postContent(event) {
     };
 
     // Send the post request to your backend
-    const postResponse = await fetch('https://phibook-f17w.onrender.com/posts/allpost/', {
+    const postResponse = await fetch('https://social-media-phibook-deployment.vercel.app/posts/allpost/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         try {
-            const response = await fetch("https://phibook-f17w.onrender.com/user/register/", {
+            const response = await fetch("https://social-media-phibook-deployment.vercel.app/user/register/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, first_name: firstName, last_name: lastName, email, password, confirm_password: confirmPassword }),
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         try {
-            const response = await fetch("https://phibook-f17w.onrender.com/user/login/", {
+            const response = await fetch("https://social-media-phibook-deployment.vercel.app/user/login/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password }),

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const postsContainer = document.getElementById('posts-container');
-    const userProfilesApiUrl = 'https://phibook-f17w.onrender.com/user/useraccounts/';
-    const postsApiUrl = 'https://phibook-f17w.onrender.com/posts/allpost/';
+    const userProfilesApiUrl = 'https://social-media-phibook-deployment.vercel.app/user/useraccounts/';
+    const postsApiUrl = 'https://social-media-phibook-deployment.vercel.app/posts/allpost/';
     const token = localStorage.getItem('token'); // Retrieve token from local storage
     const userId = localStorage.getItem('user_id'); // Retrieve user ID from local storage
 

@@ -7,7 +7,7 @@ function handleLogout() {
       return;
     }
   
-    fetch('https://phibook-f17w.onrender.com/user/logout/', {
+    fetch('https://social-media-phibook-deployment.vercel.app/user/logout/', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

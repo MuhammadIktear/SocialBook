@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     const suggestionsContainer = document.querySelector('.suggestions-list');
     const seeAllButton = document.querySelector('.see-all-suggestions');
-    const userProfilesApiUrl = 'https://phibook-f17w.onrender.com/user/useraccounts/';
-    const followingsApiUrl = 'https://phibook-f17w.onrender.com/user/followings/';
-    const followersApiUrl = 'https://phibook-f17w.onrender.com/user/followers/';
+    const userProfilesApiUrl = 'https://social-media-phibook-deployment.vercel.app/user/useraccounts/';
+    const followingsApiUrl = 'https://social-media-phibook-deployment.vercel.app/user/followings/';
+    const followersApiUrl = 'https://social-media-phibook-deployment.vercel.app/user/followers/';
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('user_id');
 

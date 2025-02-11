@@ -126,7 +126,7 @@ async function updatePost() {
     };
 
     try {
-        const response = await fetch(`https://phibook-f17w.onrender.com/posts/allpost/${currentPostId}/`, {
+        const response = await fetch(`https://social-media-phibook-deployment.vercel.app/posts/allpost/${currentPostId}/`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Token ${token}`,
@@ -214,7 +214,7 @@ function hideDeleteConfirm() {
 async function confirmDelete() {
     const token = localStorage.getItem('token');
     try {
-        const response = await fetch(`https://phibook-f17w.onrender.com/posts/allpost/${currentPostId}/`, {
+        const response = await fetch(`https://social-media-phibook-deployment.vercel.app/posts/allpost/${currentPostId}/`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Token ${token}`

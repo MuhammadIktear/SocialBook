@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
         submitButton.disabled = true;
         submitButton.textContent = "Sending...";       
 
-        fetch(`https://phibook-f17w.onrender.com/user/reset-password-confirm/?uid=${uid}&token=${token}`, {
+        fetch(`https://social-media-phibook-deployment.vercel.app/user/reset-password-confirm/?uid=${uid}&token=${token}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
