@@ -27,6 +27,7 @@
                         <i class="fa-solid fa-x" id="close-alert"></i>                        
                     </div>
                     <form id="login-form" method="post" action="/login">
+                        <button type="button" id="default-credential-btn">Default Credential</button>
                         <div class="icon-set">
                             <i class="fa-solid fa-user"></i>
                             <input id="login-username" type="text" name="username" placeholder="Username" required>
@@ -38,14 +39,14 @@
                         <button type="submit">Login</button>
                     </form>
                     <div class="pass_btn_set">
-                    <button class="off" onclick="window.location.href='register.html'">Sign Up</button>
-                    <button class="off" onclick="window.location.href='reset_password_request.html'">Forget password</button>
+                        <button class="off" onclick="window.location.href='register.html'">Sign Up</button>
+                        <button class="off" onclick="window.location.href='reset_password_request.html'">Forget password</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <script src="register.js"></script>
+    <script src="login.js"></script> 
 </body>
 </html>
-

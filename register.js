@@ -16,9 +16,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     const hideAlert = () => {
         alertContainer.style.display = 'none'; 
     };
+
     closeAlert.addEventListener('click', hideAlert);
 
     const getValue = (id) => document.getElementById(id)?.value.trim();
+
+    function fillDefaultCredentials() {
+        document.getElementById("login-username").value = "Iktear500";
+        document.getElementById("login-password").value = "iktear@123";
+    }
+
+    const defaultCredentialBtn = document.getElementById("default-credential-btn");
+    if (defaultCredentialBtn) {
+        defaultCredentialBtn.addEventListener("click", fillDefaultCredentials);
+    } else {
+        console.error("Default Credential button not found.");
+    }
 
     async function handleRegistration(event) {
         event.preventDefault();
@@ -64,9 +77,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 return;
             }
 
-            const data = await response.json();
             showAlert("Check your email for confirmation.");
-            registrationForm.reset();  // Clear the form fields
+            registrationForm.reset(); 
         } catch (error) {
             console.error("Registration error:", error);
             showAlert("An error occurred during registration. Please try again.");
@@ -102,7 +114,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
                 showAlert("Invalid login credentials. Please try again.");
                 submitButton.disabled = false;
                 submitButton.textContent = "Login";
