@@ -1,5 +1,5 @@
 async function sendComment(postId) {
-    const userProfilesApiUrl = 'https://social-media-phibook-deployment.vercel.app/user/useraccounts/';
+    const userProfilesApiUrl = 'https://phibook-f17w.onrender.com/user/useraccounts/';
     const userId = localStorage.getItem('user_id');
     const token = localStorage.getItem('token');
     let username = "";
@@ -39,7 +39,7 @@ async function sendComment(postId) {
         }
 
         // Post comment
-        const commentResponse = await fetch(`https://social-media-phibook-deployment.vercel.app/posts/allcomment/`, {
+        const commentResponse = await fetch(`https://phibook-f17w.onrender.com/posts/allcomment/`, {
             method: 'POST',
             headers: {
                 'Authorization': `Token ${token}`,

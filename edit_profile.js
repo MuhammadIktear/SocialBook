@@ -18,7 +18,7 @@ function hideToast() {
 }
 
 function fetchUserProfile(userId) {
-    fetch(`https://social-media-phibook-deployment.vercel.app/user/useraccounts/${userId}/`)
+    fetch(`https://phibook-f17w.onrender.com/user/useraccounts/${userId}/`)
         .then(response => response.json())
         .then(data => {
             // Fill form fields with existing data
@@ -61,7 +61,7 @@ function updateImage() {
 
 function updateProfileImage(imageUrl) {
     const userId = localStorage.getItem('user_id');
-    fetch(`https://social-media-phibook-deployment.vercel.app/user/useraccounts/${userId}/`, {
+    fetch(`https://phibook-f17w.onrender.com/user/useraccounts/${userId}/`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ function saveProfile() {
         about: about
     };
 
-    fetch(`https://social-media-phibook-deployment.vercel.app/user/useraccounts/${userId}/`, {
+    fetch(`https://phibook-f17w.onrender.com/user/useraccounts/${userId}/`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',

@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            fetch(`https://social-media-phibook-deployment.vercel.app/user/change-password/`, {
+            fetch(`https://phibook-f17w.onrender.com/user/change-password/`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"

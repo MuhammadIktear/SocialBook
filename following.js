@@ -2,9 +2,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const friendListGrid = document.querySelector('.friend-list-grid');
     const searchButton = document.querySelector('.friend-list-search button');
     const searchInput = document.querySelector('.friend-list-search input');
-    const userProfilesApiUrl = 'https://social-media-phibook-deployment.vercel.app/user/useraccounts/';
-    const followingsApiUrl = 'https://social-media-phibook-deployment.vercel.app/user/followings/';
-    const followersApiUrl = 'https://social-media-phibook-deployment.vercel.app/user/followers/';
+    const userProfilesApiUrl = 'https://phibook-f17w.onrender.com/user/useraccounts/';
+    const followingsApiUrl = 'https://phibook-f17w.onrender.com/user/followings/';
+    const followersApiUrl = 'https://phibook-f17w.onrender.com/user/followers/';
     const token = localStorage.getItem('token');
     const user_id = localStorage.getItem('user_id');
     const userId = new URLSearchParams(window.location.search).get("id");
